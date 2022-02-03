@@ -1,0 +1,237 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap');
+
+:root {
+  /* --c1: #000000; */
+  /* --c2: #5800FF; */
+  /* --c3: #E900FF; */
+  /* --c4: #FFC600; */
+  /* --c5: #000000; */
+  /* --c6: #000000; */
+  /* --c7: #000000; */
+  /* --c8: #000000; */
+  /* --c9: #000000; */
+
+  /* --c1: #202040; */
+  /* --c2: #543864; */
+  /* --c3: #FF6363; */
+  /* --c4: #FFBD69; */
+  /* --c5: #000000; */
+  /* --c6: #000000; */
+  /* --c7: #000000; */
+  /* --c8: #000000; */
+  /* --c9: #000000; */
+
+  /* --c1: #220E24; */
+  /* --c2: #342056; */
+  /* --c3: #5454C5; */
+  /* --c4: #639CD9; */
+  /* --c5: #000000; */
+  /* --c6: #000000; */
+  /* --c7: #000000; */
+  /* --c8: #000000; */
+  /* --c9: #000000; */
+
+  /* --c1: #424874; */
+  /* --c2: #A6B1E1; */
+  /* --c3: #DCD6F7; */
+  /* --c4: #F4EEFF; */
+  /* --c5: #000000; */
+  /* --c6: #000000; */
+  /* --c7: #000000; */
+  /* --c8: #000000; */
+  /* --c9: #000000; */
+
+  /* --c1: #11052C; */
+  /* --c2: #3B185F; */
+  /* --c3: #A12568; */
+  /* --c4: #FEC260; */
+  /* --c5: #000000; */
+  /* --c6: #000000; */
+  /* --c7: #000000; */
+  /* --c8: #000000; */
+  /* --c9: #000000; */
+
+}
+
+.media-player {
+  display: flex;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 100px;
+  background-color: var(--c1);
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: var(--c2);
+}
+
+.media-player-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.media-player-items-left {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 30%;
+}
+
+.media-player-items-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+.media-player-items-right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+  width: 30%;
+}
+
+.album-cover-icon {
+  height: 56px;
+  width: 56px;
+}
+
+.song-info-box {
+  overflow: hidden;
+  margin-left: 14px;
+  margin-right: 14px;
+  box-sizing: border-box;
+}
+
+.song-title {
+  display: block;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.artist-name {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin: 0;
+  padding: 0;
+  font-size: 0.8em;
+  cursor: pointer;
+}
+
+.media-player-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+.media-player-timeline-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+
+.media-player-timeline-clickable {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.media-player-timeline {
+  display: flex;
+  background-color: var(--c2);
+  border-radius: 2px;
+  height: 4px;
+  width: 100%;
+}
+
+.media-player-timeline-progress {
+  border-radius: 2px;
+  height: 100%;
+  width: 0;
+  background-color: var(--c3);
+}
+
+.media-player-timeline-cursor {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin-left: -6px;
+  background-color: white;
+  transform: translateY(-30%);
+}
+
+.current-time, .song-duration {
+  width: 40px;
+  font-size: 0.8em;
+  cursor: default;
+}
+
+.media-player-button {
+  width: 32px;
+  height: 32px;
+}
+
+.media-player-button i:hover {
+  color: var(--c4);
+  transition: 0.3s;
+}
+
+.media-player-volume-clickable {
+  display: flex;
+  flex: 0 1 100px;
+  align-items: center;
+  height: 15px;
+  width: 100%;
+}
+
+.media-player-volume {
+  display: flex;
+  background-color: var(--c2);
+  border-radius: 2px;
+  height: 4px;
+  flex: 0 1 125px;
+}
+
+.media-player-volume-progress {
+  border-radius: 2px;
+  height: 100%;
+  width: 100%;
+  background-color: var(--c3);
+}
+
+.media-player-volume-cursor {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  margin-left: -6px;
+  background-color: white;
+  transform: translateY(-30%);
+}
+
+.media-player-button i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+}

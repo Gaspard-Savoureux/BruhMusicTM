@@ -44,6 +44,9 @@ typings/
 # Optional npm cache directory
 .npm
 
+# Eslint config
+.eslintrc.json
+
 # Optional eslint cache
 .eslintcache
 

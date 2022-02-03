@@ -2,9 +2,12 @@ const path = require('path');
 
 module.exports = {
   mode: 'development',
-  entry: './src/js/index.js',
+  entry: './src/index.js',
   devtool: 'inline-source-map',
   target: 'electron-renderer',
+  watchOptions: {
+    ignored: /\.#|node_modules|~$/,
+  },
   module: {
     rules: [
       {
@@ -13,15 +16,18 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           options: {
-            presets: [[
-              '@babel/preset-env', {
-                targets: {
-                  esmodules: true
-                }
-              }],
-              '@babel/preset-react']
-          }
-        }
+            presets: [
+              [
+                '@babel/preset-env', {
+                  targets: {
+                    esmodules: true,
+                  },
+                },
+              ],
+              '@babel/preset-react',
+            ],
+          },
+        },
       },
       {
         test: [/\.s[ac]ss$/i, /\.css$/i],
@@ -33,8 +39,8 @@ module.exports = {
           // Compiles Sass to CSS
           'sass-loader',
         ],
-      }
-    ]
+      },
+    ],
   },
   resolve: {
     extensions: ['.js'],

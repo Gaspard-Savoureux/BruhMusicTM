@@ -1,0 +1,54 @@
+:root {
+  --c0: #180a1a;
+  --c1: #220E24;
+  --c2: #342056;
+  --c3: #5454C5;
+  --c4: #bf395b;
+  --c5: #639CD9;
+  --c6: #ffffff;
+  --c7: #000000;
+  --c8: #000000;
+  --c9: #000000;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--c0);
+  color: var(--c6);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App, body, html, #root {
+  height: 100%;
+  width: 100%;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+.content {
+  display: flex;
+  width: 100%;
+}
