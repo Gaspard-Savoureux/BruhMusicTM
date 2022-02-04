@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import Modal from "react-modal";
-import "../styles/menu.css";
-import "../styles/login.css";
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import Modal from 'react-modal';
+import '../styles/menu.css';
+import '../styles/login.css';
 
 const Menu = () => {
   const [menuIsSlim, setMenuIsSlim] = useState(true);
@@ -12,23 +13,23 @@ const Menu = () => {
   };
 
   return (
-    <div className="menu" style={{ width: menuIsSlim ? "50px" : "200px" }}>
+    <div className="menu" style={{ width: menuIsSlim ? '50px' : '200px' }}>
       <div className="menu-header">
         <img className="menu-logo" src="./bunny.png" alt="logo" />
       </div>
       <div className="menu-body">
-        <div className="menu-item">
+        <Link className="menu-item" to="/">
           <div className="menu-item-icon">
             <i className="fas fa-home"></i>
           </div>
           {!menuIsSlim && <div className="menu-item-text">Home</div>}
-        </div>
-        <div className="menu-item">
+        </Link>
+        <Link className="menu-item" to="/search">
           <div className="menu-item-icon">
             <i className="fas fa-search"></i>
           </div>
           {!menuIsSlim && <div className="menu-item-text">Search</div>}
-        </div>
+        </Link>
         <div className="menu-item">
           <div className="menu-item-icon">
             <i className="fas fa-music"></i>
@@ -90,10 +91,10 @@ const Menu = () => {
         portalClassName="modal"
         style={{
           content: {
-            background: "linear-gradient(120deg,#2980b9, #8e44ad)",
+            background: 'linear-gradient(120deg,#2980b9, #8e44ad)',
             margin: 0,
             padding: 0,
-            overflow: "hidden",
+            overflow: 'hidden',
           },
         }}
       >

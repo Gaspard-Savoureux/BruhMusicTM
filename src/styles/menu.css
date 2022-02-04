@@ -38,6 +38,8 @@
   flex-direction: row;
   align-items: center;
   justify-content: flex-start;
+  text-decoration: none;
+  color: var(--c6);
 }
 
 .menu-item-icon {
