@@ -61,12 +61,8 @@ export default function Search() {
         Search
       </button>
       <div className="row columns is-multiline">
-        {filteredMusic.length != 0 && (
-          filteredMusics.map((music) => (
-            <Music music={music} key={music.id} />
-          ))
-        }
-
+        {filteredMusics.length !== 0 &&
+          filteredMusics.map((music) => <Music music={music} key={music.id} />)}
       </div>
     </div>
   );
