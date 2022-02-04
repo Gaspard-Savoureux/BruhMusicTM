@@ -1,4 +1,46 @@
+.collection-container {
+  margin-top: 10px;
+  width: 100%;
+}
+
 .collection-title {
   font-weight: bold;
   font-size: 2em;
+}
+
+.collection-albums-container {
+  display: flex;
+  flex: 1 1 0px;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.collection-album {
+  background-color: var(--c1);
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 16px;
+}
+
+.collection-album-cover {
+  width: 100%;
+  object-fit: contain;
+}
+
+.collection-album-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-top: 10px;
+}
+
+.collection-album-artist {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }

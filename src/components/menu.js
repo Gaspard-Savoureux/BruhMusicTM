@@ -49,14 +49,15 @@ const Menu = () => {
         )}
       </div>
       <div className="menu-footer">
-        <div className="menu-item">
+        <div className="menu-item"
+             onClick={() => setModalIsOpen(true)}
+        >
           <div className="menu-item-icon">
             <i className="fas fa-user"></i>
           </div>
           {!menuIsSlim && (
             <div
               className="menu-item-text"
-              onClick={() => setModalIsOpen(true)}
             >
               Profile
             </div>
@@ -86,7 +87,6 @@ const Menu = () => {
         isOpen={modalIsOpen}
         onRequestClose={() => {
           setModalIsOpen(false);
-          toggleMenuIsSlim();
         }}
         portalClassName="modal"
         style={{
@@ -102,12 +102,12 @@ const Menu = () => {
           <h1>Login</h1>
           <form method="post">
             <div class="txt_field">
-              <input type="text" required />
+              <input class="input-username" type="text" required />
               <span></span>
               <label>Username</label>
             </div>
             <div class="txt_field">
-              <input type="password" required />
+              <input class="input-password" type="password" required />
               <span></span>
               <label>Password</label>
             </div>
