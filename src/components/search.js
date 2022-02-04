@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Music from './music';
 
 import Collection from './collection';
@@ -8,7 +8,6 @@ import '../styles/search.css';
 import { serveur } from '../const';
 
 export default function Search() {
-  const [musics, setMusics] = useState([]);
   const [filteredMusics, setFilteredMusics] = useState([]);
   const [searchFilter, setSearchFilter] = useState('');
 
@@ -22,32 +21,15 @@ export default function Search() {
       const res = await fetch(url);
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         setFilteredMusics(data);
       } else {
         console.log("une erreur s'est produite lors de l'appel à /api/podcast");
       }
     } else {
-      setFilteredMusics(musics);
+      setFilteredMusics(filteredMusics);
     }
   }
 
-  // useEffect(() => {
-  //   async function componentDidMount() {
-  //     const url = `${serveur}/music`;
-  //     const res = await fetch(url);
-  //     if (res.ok) {
-  //       const data = await res.json();
-  //       setMusics(data);
-  //       setFilteredMusics(data);
-  //     } else {
-  //       console.log("une erreur s'est produite lors de l'appel à /music");
-  //     }
-  //   }
-
-  //   componentDidMount().then(() => console.log('componentDidMount terminé'));
-  // }, [setMusics]);
-  // ajouter un handleOnInput qui attend deux secondes pour search
   return (
     <div className="home-container">
       <Collection title="Search" />
@@ -60,9 +42,14 @@ export default function Search() {
       <button type="submit" onClick={onClickSearch}>
         Search
       </button>
-      <div className="row columns is-multiline">
-        {filteredMusics.length !== 0 &&
-          filteredMusics.map((music) => <Music music={music} key={music.id} />)}
+      <div className="above">
+        <div className="title">Title</div>
+        <div className="duration">Duration</div>
+      </div>
+      <div>
+        {filteredMusics.map((music) => (
+          <Music music={music} key={music.id} />
+        ))}
       </div>
     </div>
   );

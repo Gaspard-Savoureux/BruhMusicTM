@@ -20,13 +20,13 @@ const Menu = () => {
       <div className="menu-body">
         <Link className="menu-item" to="/">
           <div className="menu-item-icon">
-            <i className="fas fa-home"></i>
+            <i className="fas fa-home" />
           </div>
           {!menuIsSlim && <div className="menu-item-text">Home</div>}
         </Link>
         <Link className="menu-item" to="/search">
           <div className="menu-item-icon">
-            <i className="fas fa-search"></i>
+            <i className="fas fa-search" />
           </div>
           {!menuIsSlim && <div className="menu-item-text">Search</div>}
         </Link>
