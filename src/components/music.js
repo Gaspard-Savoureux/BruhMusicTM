@@ -5,14 +5,13 @@ import '../styles/music.css';
 import useMusicPlayer from '../hooks/useMusicPlayer';
 
 function Music({ music }) {
-  const { playTrack } = useMusicPlayer();
-  const date = new Date(null);
-  date.setSeconds(music.duration);
-  const result = date.toISOString().substr(14, 5);
+  const { playTrack, formatTime } = useMusicPlayer();
+
+  const duration = formatTime(music.duration);
 
   const changeAudio = () => {
     const track = `${serveur}/uploads/${music.file_name}`;
-    playTrack(track, result, music.title);
+    playTrack(track, duration, music.title);
   };
 
   return (
@@ -24,7 +23,7 @@ function Music({ music }) {
       tabIndex={0}
     >
       <div className="title">{music.title}</div>
-      <div className="duration">{result}</div>
+      <div className="duration">{duration}</div>
     </div>
   );
 }

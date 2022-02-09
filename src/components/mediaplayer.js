@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import '../styles/mediaplayer.css';
 
 import useMusicPlayer from '../hooks/useMusicPlayer';
@@ -10,17 +10,20 @@ const Mediaplayer = () => {
     togglePlay,
     isPlaying,
     // mute,
-    // changeProgress,
+    changeProgress,
     volume,
-    duration,
+    // duration,
+    // currentTime,
+    formatTime,
+    audio,
   } = useMusicPlayer();
 
-  // const [timelineIsClicked, setTimelineIsClicked] = useState(false);
+  const [timelineIsClicked, setTimelineIsClicked] = useState(false);
   // const [audio, setAudio] = useState(new Audio('./sample.mp3'));
   // const [musicIsPlaying, setMusicIsPlaying] = useState(false);
   // const [musicIsFavorite, setMusicIsFavorite] = useState(false);
-  // const [currentTime, setCurrentTime] = useState('0:00');
-  // const [duration, setDuration] = useState('0:00');
+  const [currentTime, setCurrentTime] = useState('0:00');
+  const [duration, setDuration] = useState('0:00');
   // const [volume, setVolume] = useState(1);
   // const [volumePreMute, setVolumePreMute] = useState(1);
   const timeline = useRef();
@@ -28,18 +31,17 @@ const Mediaplayer = () => {
   const volumeSlider = useRef();
   const volumeSliderProgressBar = useRef();
 
-  // useEffect(() => {
-  //   audio.ontimeupdate = () => {
-  //     if (!timelineIsClicked) {
-  //       setCurrentTime(formatTime(audio.currentTime));
-  //       setDuration(formatTime(audio.duration));
-  //       timelineProgressBar.current.style.width = `${
-  //         (audio.currentTime / audio.duration) * 100
-  //       }%`;
-  //     }
-  //   };
-  // }, [audio.currentTime, audio, timelineIsClicked]);
-
+  useEffect(() => {
+    audio.ontimeupdate = () => {
+      if (!timelineIsClicked) {
+        setCurrentTime(formatTime(audio.currentTime));
+        setDuration(formatTime(audio.duration));
+        timelineProgressBar.current.style.width = `${
+          (audio.currentTime / audio.duration) * 100
+        }%`;
+      }
+    };
+  }, [audio.currentTime, audio, timelineIsClicked]);
   // useEffect(() => {
   //   audio.onended = () => {
   //     setMusicIsPlaying(false);
@@ -75,22 +77,22 @@ const Mediaplayer = () => {
   // };
 
   // TODO factoriser les fonctions "mouseDown"
-  // const mouseDownTimeline = (event) => {
-  //   setTimelineIsClicked(true);
-  //   let progressValue = changeProgress(event, timeline);
-  //   timelineProgressBar.current.style.width = `${progressValue}%`;
-  //   document.onmousemove = (eventMouseMove) => {
-  //     progressValue = changeProgress(eventMouseMove, timeline);
-  //     timelineProgressBar.current.style.width = `${progressValue}%`;
-  //     setCurrentTime(formatTime((progressValue / 100) * audio.duration));
-  //   };
-  //   document.onmouseup = () => {
-  //     audio.currentTime = (progressValue / 100) * audio.duration;
-  //     setTimelineIsClicked(false);
-  //     document.onmouseup = null;
-  //     document.onmousemove = null;
-  //   };
-  // };
+  const mouseDownTimeline = (event) => {
+    setTimelineIsClicked(true);
+    let progressValue = changeProgress(event, timeline);
+    timelineProgressBar.current.style.width = `${progressValue}%`;
+    document.onmousemove = (eventMouseMove) => {
+      progressValue = changeProgress(eventMouseMove, timeline);
+      timelineProgressBar.current.style.width = `${progressValue}%`;
+      currentTime(formatTime((progressValue / 100) * audio.duration));
+    };
+    document.onmouseup = () => {
+      audio.currentTime = (progressValue / 100) * audio.duration;
+      setTimelineIsClicked(false);
+      document.onmouseup = null;
+      document.onmousemove = null;
+    };
+  };
 
   // const mouseDownVolumeSlider = (event) => {
   //   let progressValue = changeProgress(event, volumeSlider);
@@ -167,11 +169,11 @@ const Mediaplayer = () => {
             {/* </div> */}
           </div>
           <div className="media-player-timeline-container">
-            {/* <div className="current-time">{currentTime}</div> */}
+            <div className="current-time">{currentTime}</div>
             <div
               className="media-player-timeline-clickable"
               ref={timeline}
-              /* onMouseDown={mouseDownTimeline} */
+              onMouseDown={mouseDownTimeline}
             >
               <div className="media-player-timeline">
                 <div

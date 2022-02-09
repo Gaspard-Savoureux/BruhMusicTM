@@ -85,6 +85,19 @@ const useMusicPlayer = () => {
     return progressValue;
   }
 
+  function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+    return `${minutes}:${returnedSeconds}`;
+  }
+
+  // function currentTime(time) {
+  //   console.log(time);
+  //   if (!time) return state.audioPlayer.currentTime;
+  //   state.audio.currentTime = time;
+  // }
+
   return {
     playTrack,
     togglePlay,
@@ -97,6 +110,9 @@ const useMusicPlayer = () => {
     changeProgress,
     volume: state.volume,
     duration: state.duration,
+    // currentTime,
+    formatTime,
+    audio: state.audioPlayer,
   };
 };
 
