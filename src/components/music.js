@@ -12,15 +12,15 @@ function Music({ music }) {
 
   const changeAudio = () => {
     const track = `${serveur}/uploads/${music.file_name}`;
-    playTrack(track);
+    playTrack(track, result, music.title);
   };
 
   return (
     <div
       className="music"
       role="button"
-      onClick={changeAudio()}
-      /* onKeyDown={changeAudio()} */
+      onClick={changeAudio}
+      onKeyDown={changeAudio}
       tabIndex={0}
     >
       <div className="title">{music.title}</div>

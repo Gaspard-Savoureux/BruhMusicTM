@@ -23,7 +23,7 @@ export default function Search() {
         const data = await res.json();
         setFilteredMusics(data);
       } else {
-        console.log("une erreur s'est produite lors de l'appel à /api/podcast");
+        console.log("une erreur s'est produite lors de l'appel à /music");
       }
     } else {
       setFilteredMusics(filteredMusics);

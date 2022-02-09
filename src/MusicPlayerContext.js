@@ -7,9 +7,11 @@ const MusicPlayerProvider = (props) => {
     audioPlayer: new Audio(),
     tracks: [],
     currentTrackIndex: null,
+    currentTrackName: '‎',
     isPlaying: false,
     premute: null,
     volume: -1,
+    duration: 0.0,
   });
 
   return (

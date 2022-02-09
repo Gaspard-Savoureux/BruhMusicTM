@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import '../styles/mediaplayer.css';
 
 import useMusicPlayer from '../hooks/useMusicPlayer';
@@ -6,32 +6,27 @@ import useMusicPlayer from '../hooks/useMusicPlayer';
 const Mediaplayer = () => {
   const {
     // trackList,
-    // currentTrackName,
-    // isPlaying,
+    currentTrackName,
+    togglePlay,
+    isPlaying,
     // mute,
     // changeProgress,
     volume,
+    duration,
   } = useMusicPlayer();
 
-  const [timelineIsClicked, setTimelineIsClicked] = useState(false);
+  // const [timelineIsClicked, setTimelineIsClicked] = useState(false);
   // const [audio, setAudio] = useState(new Audio('./sample.mp3'));
-  const [musicIsPlaying, setMusicIsPlaying] = useState(false);
-  const [musicIsFavorite, setMusicIsFavorite] = useState(false);
-  const [currentTime, setCurrentTime] = useState('0:00');
-  const [duration, setDuration] = useState('0:00');
+  // const [musicIsPlaying, setMusicIsPlaying] = useState(false);
+  // const [musicIsFavorite, setMusicIsFavorite] = useState(false);
+  // const [currentTime, setCurrentTime] = useState('0:00');
+  // const [duration, setDuration] = useState('0:00');
   // const [volume, setVolume] = useState(1);
   // const [volumePreMute, setVolumePreMute] = useState(1);
   const timeline = useRef();
   const timelineProgressBar = useRef();
   const volumeSlider = useRef();
   const volumeSliderProgressBar = useRef();
-
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
-    const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
-    return `${minutes}:${returnedSeconds}`;
-  };
 
   // useEffect(() => {
   //   audio.ontimeupdate = () => {
@@ -55,16 +50,6 @@ const Mediaplayer = () => {
   //     setDuration(formatTime(audio.duration));
   //   };
   // }, [audio]);
-
-  // const playButtonHandler = () => {
-  //   if (musicIsPlaying) {
-  //     setMusicIsPlaying(false);
-  //     audio.pause();
-  //   } else {
-  //     setMusicIsPlaying(true);
-  //     audio.play();
-  //   }
-  // };
 
   // const backButtonHandler = () => {
   //   if (audio.currentTime > 3) {
@@ -145,9 +130,7 @@ const Mediaplayer = () => {
         <div className="media-player-items-left">
           <img className="album-cover-icon" src="bunny.png" alt="album cover" />
           <div className="song-info-box">
-            <div className="song-title">
-              Song title Name asdghjkgh ksdjhkgjasdf ghjkdfa sdfkghj
-            </div>
+            <div className="song-title">{currentTrackName}</div>
             <div className="artist-name">
               by Artist Name sdf sdf sdf sdf sdfsdfa sadf sdfs fsdf s
             </div>
@@ -163,10 +146,8 @@ const Mediaplayer = () => {
             >
               <i className="fas fa-step-backward" />
             </div>
-            <div
-              className="media-player-button" /* onClick={playButtonHandler} */
-            >
-              {musicIsPlaying ? (
+            <div className="media-player-button" onClick={togglePlay}>
+              {isPlaying ? (
                 <i className="fas fa-pause" />
               ) : (
                 <i className="fas fa-play" />
@@ -177,16 +158,16 @@ const Mediaplayer = () => {
             >
               <i className="fas fa-step-forward" />
             </div>
-            <div className="media-player-button">
-              {musicIsFavorite ? (
-                <i className="fas fa-heart" />
-              ) : (
-                <i className="far fa-heart" />
-              )}
-            </div>
+            {/* <div className="media-player-button"> */}
+            {/*   {musicIsFavorite ? ( */}
+            {/*     <i className="fas fa-heart" /> */}
+            {/*   ) : ( */}
+            {/*     <i className="far fa-heart" /> */}
+            {/*   )} */}
+            {/* </div> */}
           </div>
           <div className="media-player-timeline-container">
-            <div className="current-time">{currentTime}</div>
+            {/* <div className="current-time">{currentTime}</div> */}
             <div
               className="media-player-timeline-clickable"
               ref={timeline}
@@ -204,7 +185,7 @@ const Mediaplayer = () => {
           </div>
         </div>
         <div className="media-player-items-right">
-          <div className="media-player-button" /* onClick={() => mute()} */>
+          <div className="media-player-button" onClick={() => mute()}>
             {volume >= 0.3 && <i className="fas fa-volume-up" />}
             {volume < 0.3 && volume > 0 && <i className="fas fa-volume-down" />}
             {volume === 0 && <i className="fas fa-volume-off" />}

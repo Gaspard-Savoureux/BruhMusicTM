@@ -10,17 +10,23 @@ const useMusicPlayer = () => {
     } else {
       state.audioPlayer.play();
     }
-    setState((state) => ({ ...state, isPlaying: !state.isPlaying }));
+    setState({ ...state, isPlaying: !state.isPlaying });
   }
 
-  function playTrack(track) {
+  function playTrack(track, duration, currentTrackName) {
     if (track === state.currentTrackName) {
       togglePlay();
     }
     state.audioPlayer.pause();
     state.audioPlayer = new Audio(track);
     state.audioPlayer.play();
-    state.currentTrackName = track;
+    setState({
+      //
+      ...state,
+      currentTrackName,
+      duration,
+      isPlaying: true,
+    });
   }
   // function playTrack(index) {
   //   if (index === state.currentTrackIndex) {
@@ -52,13 +58,17 @@ const useMusicPlayer = () => {
 
   function mute() {
     if (state.audioPlayer.volume !== -1) {
-      state.premute = state.audioPlayer.volume;
+      setState({
+        //
+        ...state,
+        premute: state.audioPlayer.volume,
+        volume: -1,
+      });
       state.audioPlayer.volume = -1;
-      state.volume = -1;
     } else {
       const { premute } = state.premute;
       state.audioPlayer.volume = premute;
-      state.volume = premute;
+      setState({ ...state, volume: premute });
     }
   }
 
@@ -75,23 +85,18 @@ const useMusicPlayer = () => {
     return progressValue;
   }
 
-  function volume() {
-    return 0;
-  }
-
   return {
     playTrack,
     togglePlay,
-    currentTrackName:
-      state.currentTrackIndex !== null &&
-      state.tracks[state.currentTrackIndex].name,
+    currentTrackName: state.currentTrackName,
     trackList: state.tracks,
     isPlaying: state.isPlaying,
     // playPreviousTrack,
     // playNextTrack,
     mute,
     changeProgress,
-    volume,
+    volume: state.volume,
+    duration: state.duration,
   };
 };
 
