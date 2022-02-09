@@ -5,15 +5,10 @@ import useMusicPlayer from '../hooks/useMusicPlayer';
 
 const Mediaplayer = () => {
   const {
-    // trackList,
     currentTrackName,
     togglePlay,
     isPlaying,
-    // mute,
     changeProgress,
-    volume,
-    // duration,
-    // currentTime,
     formatTime,
     audio,
   } = useMusicPlayer();
@@ -24,8 +19,8 @@ const Mediaplayer = () => {
   // const [musicIsFavorite, setMusicIsFavorite] = useState(false);
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('0:00');
-  // const [volume, setVolume] = useState(1);
-  // const [volumePreMute, setVolumePreMute] = useState(1);
+  const [volume, setVolume] = useState(1);
+  const [volumePreMute, setVolumePreMute] = useState(1);
   const timeline = useRef();
   const timelineProgressBar = useRef();
   const volumeSlider = useRef();
@@ -42,6 +37,7 @@ const Mediaplayer = () => {
       }
     };
   }, [audio.currentTime, audio, timelineIsClicked]);
+
   // useEffect(() => {
   //   audio.onended = () => {
   //     setMusicIsPlaying(false);
@@ -63,19 +59,6 @@ const Mediaplayer = () => {
   // go to next song, if there is none stop current song
   //};
 
-  // const changeProgress = (event, slider) => {
-  //   let progressValue =
-  //     ((event.clientX - slider.current.getBoundingClientRect().left) / // degeulasse
-  //       parseInt(window.getComputedStyle(slider.current).width, 10)) *
-  //     100;
-  //   if (progressValue > 100) {
-  //     progressValue = 100;
-  //   } else if (progressValue < 0) {
-  //     progressValue = 0;
-  //   }
-  //   return progressValue;
-  // };
-
   // TODO factoriser les fonctions "mouseDown"
   const mouseDownTimeline = (event) => {
     setTimelineIsClicked(true);
@@ -94,37 +77,37 @@ const Mediaplayer = () => {
     };
   };
 
-  // const mouseDownVolumeSlider = (event) => {
-  //   let progressValue = changeProgress(event, volumeSlider);
-  //   volumeSliderProgressBar.current.style.width = `${progressValue}%`;
-  //   setVolume(progressValue / 100);
-  //   audio.volume = progressValue / 100;
-  //   document.onmousemove = (eventMouseMove) => {
-  //     progressValue = changeProgress(
-  //       eventMouseMove,
-  //       volumeSlider,
-  //       volumeSliderProgressBar,
-  //     );
-  //     volumeSliderProgressBar.current.style.width = `${progressValue}%`;
-  //     setVolume(progressValue / 100);
-  //     audio.volume = progressValue / 100;
-  //   };
-  //   document.onmouseup = () => {
-  //     document.onmouseup = null;
-  //     document.onmousemove = null;
-  //   };
-  // };
+  const mouseDownVolumeSlider = (event) => {
+    let progressValue = changeProgress(event, volumeSlider);
+    volumeSliderProgressBar.current.style.width = `${progressValue}%`;
+    setVolume(progressValue / 100);
+    audio.volume = progressValue / 100;
+    document.onmousemove = (eventMouseMove) => {
+      progressValue = changeProgress(
+        eventMouseMove,
+        volumeSlider,
+        volumeSliderProgressBar,
+      );
+      volumeSliderProgressBar.current.style.width = `${progressValue}%`;
+      setVolume(progressValue / 100);
+      audio.volume = progressValue / 100;
+    };
+    document.onmouseup = () => {
+      document.onmouseup = null;
+      document.onmousemove = null;
+    };
+  };
 
-  // const mute = () => {
-  //   if (volume !== -1) {
-  //     audio.volume = 0;
-  //     setVolumePreMute(volume);
-  //     setVolume(-1);
-  //   } else {
-  //     audio.volume = volumePreMute;
-  //     setVolume(volumePreMute);
-  //   }
-  // };
+  const mute = () => {
+    if (volume !== -1) {
+      audio.volume = 0;
+      setVolumePreMute(volume);
+      setVolume(-1);
+    } else {
+      audio.volume = volumePreMute;
+      setVolume(volumePreMute);
+    }
+  };
 
   return (
     <div className="media-player">
@@ -196,7 +179,7 @@ const Mediaplayer = () => {
           <div
             className="media-player-volume-clickable"
             ref={volumeSlider}
-            /* onMouseDown={mouseDownVolumeSlider} */
+            onMouseDown={mouseDownVolumeSlider}
           >
             <div className="media-player-volume">
               <div
