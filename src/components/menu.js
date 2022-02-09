@@ -1,19 +1,94 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import Modal from 'react-modal';
-import '../styles/menu.css';
-import '../styles/login.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import Modal from "react-modal";
+import { serveur } from "../const";
+import "../styles/menu.css";
+import "../styles/login.css";
 
 const Menu = () => {
   const [menuIsSlim, setMenuIsSlim] = useState(true);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [loginModal, setLogin] = useState(false);
+  const [registerModal, setRegister] = useState(false);
+  const [userCred, setUserCred] = useState("");
+  const [password, setPassword] = useState("");
 
   const toggleMenuIsSlim = () => {
     setMenuIsSlim(!menuIsSlim);
   };
 
+  function handleChangeUserCred(event) {
+    setUserCred(event.target.value);
+  }
+
+  function handleChangePassword(event) {
+    setPassword(event.target.value);
+  }
+
+  function handleRegister(e) {
+    e.preventDefault();
+    register();
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    login();
+  }
+
+  // Test
+  function switchLogin() {
+    setRegister(false);
+    setLogin(true);
+  }
+  function switchRegister() {
+    setLogin(false);
+    setRegister(true);
+  }
+
+  async function register() {
+    const bodyContent = {
+      password: password,
+      email: userCred,
+      username: userCred,
+    };
+
+    let response = await fetch(`${serveur}/auth/register`, {
+      method: "POST",
+      body: JSON.stringify(bodyContent),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      let data = await response.json();
+      console.log(data);
+    } else {
+      console.log("NOPE");
+      console.error(response.statusText);
+    }
+  }
+
+  async function login() {
+    const bodyContent = {
+      userCred: userCred,
+      password: password,
+    };
+
+    let response = await fetch(`${serveur}/auth/create-token`, {
+      method: "POST",
+      body: JSON.stringify(bodyContent),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (response.ok) {
+      let data = await response.json();
+      console.log(data);
+    } else {
+      console.log("NOPE");
+      console.error(response.statusText);
+    }
+  }
+
   return (
-    <div className="menu" style={{ width: menuIsSlim ? '50px' : '200px' }}>
+    <div className="menu" style={{ width: menuIsSlim ? "50px" : "200px" }}>
       <div className="menu-header">
         <img className="menu-logo" src="./bunny.png" alt="logo" />
       </div>
@@ -49,19 +124,11 @@ const Menu = () => {
         )}
       </div>
       <div className="menu-footer">
-        <div className="menu-item"
-             onClick={() => setModalIsOpen(true)}
-        >
+        <div className="menu-item" onClick={() => setLogin(true)}>
           <div className="menu-item-icon">
             <i className="fas fa-user"></i>
           </div>
-          {!menuIsSlim && (
-            <div
-              className="menu-item-text"
-            >
-              Profile
-            </div>
-          )}
+          {!menuIsSlim && <div className="menu-item-text">Profile</div>}
         </div>
         <div className="menu-item">
           <div className="menu-item-icon">
@@ -84,37 +151,98 @@ const Menu = () => {
         </div>
       </div>
       <Modal
-        isOpen={modalIsOpen}
+        isOpen={loginModal}
         onRequestClose={() => {
-          setModalIsOpen(false);
+          setLogin(false);
         }}
         portalClassName="modal"
         style={{
           content: {
-            background: 'linear-gradient(120deg,#2980b9, #8e44ad)',
+            background: "linear-gradient(120deg,#2980b9, #8e44ad)",
             margin: 0,
             padding: 0,
-            overflow: 'hidden',
+            overflow: "hidden",
           },
         }}
       >
         <div class="center">
           <h1>Login</h1>
-          <form method="post">
+          <form method="post" onSubmit={handleLogin}>
             <div class="txt_field">
-              <input class="input-username" type="text" required />
+              <input
+                class="input-username"
+                type="text"
+                onChange={handleChangeUserCred}
+                required
+              />
               <span></span>
               <label>Username</label>
             </div>
             <div class="txt_field">
-              <input class="input-password" type="password" required />
+              <input
+                class="input-password"
+                type="password"
+                onChange={handleChangePassword}
+                required
+              />
               <span></span>
               <label>Password</label>
             </div>
             <div class="pass">Forgot Password?</div>
             <input type="submit" value="Login" />
             <div class="signup_link">
-              Not a member? <a href="#">Signup</a>
+              Not a member?{" "}
+              <a href="#" onClick={switchRegister}>
+                Signup
+              </a>
+            </div>
+          </form>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={registerModal}
+        onRequestClose={() => {
+          setRegister(false);
+        }}
+        portalClassName="modal"
+        style={{
+          content: {
+            background: "linear-gradient(120deg,#2980b9, #8e44ad)",
+            margin: 0,
+            padding: 0,
+            overflow: "hidden",
+          },
+        }}
+      >
+        <div class="center">
+          <h1>Register</h1>
+          <form method="post" onSubmit={handleRegister}>
+            <div class="txt_field">
+              <input
+                class="input-username"
+                type="text"
+                onChange={handleChangeUserCred}
+                required
+              />
+              <span></span>
+              <label>Username</label>
+            </div>
+            <div class="txt_field">
+              <input
+                class="input-password"
+                type="password"
+                onChange={handleChangePassword}
+                required
+              />
+              <span></span>
+              <label>Password</label>
+            </div>
+            <input type="submit" value="Register" />
+            <div class="signup_link">
+              Already a member?{" "}
+              <a href="#" onClick={switchLogin}>
+                Login
+              </a>
             </div>
           </form>
         </div>
