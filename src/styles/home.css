@@ -3,5 +3,6 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
-  padding: 10px;
+  overflow-x: hidden;
+  padding: 0px 10px 110px 10px;
 }

@@ -1,0 +1,17 @@
+/* ::-webkit-scrollbar { */
+/*   width: 10px; */
+
+/*   padding-bottom: 200px; */
+/*   margin-bottom: 200px; */
+/* } */
+
+/* ::-webkit-scrollbar-track { */
+/*   background: var(--c0); */
+/*   height: 40%; */
+/* } */
+
+/* ::-webkit-scrollbar-thumb { */
+/*   /\* background: var(--c1); *\/ */
+/*   background: red; */
+/*   border-radius: 10px; */
+/* } */

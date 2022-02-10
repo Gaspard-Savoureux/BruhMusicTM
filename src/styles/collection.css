@@ -9,10 +9,12 @@
 }
 
 .collection-albums-container {
-  display: flex;
-  flex: 1 1 0px;
-  justify-content: space-between;
-  gap: 10px;
+  display: grid;
+  grid-template-rows: 1fr;
+  grid-auto-rows: 0;
+  overflow-y: hidden;
+  grid-gap: 0 10px;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
 }
 
 .collection-album {
@@ -20,7 +22,6 @@
   display: flex;
   width: 100%;
   flex-direction: column;
-  justify-content: space-between;
   overflow: hidden;
   padding: 16px;
 }
