@@ -14,7 +14,6 @@ const Menu = () => {
   const [password, setPassword] = useState("");
 
   const toggleMenuIsSlim = () => setMenuIsSlim(!menuIsSlim);
-  const openModal = () => setModalIsOpen(true);
 
   function handleChangeUserCred(event) {
     setUserCred(event.target.value);
@@ -104,8 +103,8 @@ const Menu = () => {
         )}
       </div>
       <div className="menu-footer">
-        <MenuButton onClick={() => setModalIsOpen(true)} icon="fas fa-sign-in-alt" text="Login" menuIsSlim={menuIsSlim} />
-        <MenuButton onClick={() => setModalIsOpen(true)} icon="fas fa-edit" text="Register" menuIsSlim={menuIsSlim} />
+        <MenuButton onClick={() => setLogin(true)} icon="fas fa-sign-in-alt" text="Login" menuIsSlim={menuIsSlim} />
+        <MenuButton onClick={() => setRegister(true)} icon="fas fa-edit" text="Register" menuIsSlim={menuIsSlim} />
         <MenuLinkButton to="/" icon="fas fa-cog" text="Settings" menuIsSlim={menuIsSlim} />
         <div className="menu-item collapse-menu-button" onClick={toggleMenuIsSlim}>
           <div className="menu-item-icon">
