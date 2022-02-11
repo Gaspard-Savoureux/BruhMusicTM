@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
 import Modal from 'react-modal';
 import MenuLinkButton from './menu-link-button';
 import MenuButton from './menu-button';
 import { serveur } from "../const";
 import '../styles/menu.css';
 import '../styles/login.css';
+
 
 const Menu = () => {
   const [menuIsSlim, setMenuIsSlim] = useState(true);
@@ -13,6 +15,7 @@ const Menu = () => {
   const [userCred, setUserCred] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
   const toggleMenuIsSlim = () => setMenuIsSlim(!menuIsSlim);
 
   function handleChangeUserCred(event) {
@@ -59,6 +62,7 @@ const Menu = () => {
     if (response.ok) {
       let data = await response.json();
       console.log(data);
+      setRegister(false); // Close Modal once registered
     } else {
       console.log("NOPE");
       console.error(response.statusText);
@@ -80,6 +84,8 @@ const Menu = () => {
     if (response.ok) {
       let data = await response.json();
       console.log(data);
+      navigate('profile'); // TODO navigation vers page profil
+      setLogin(false);
     } else {
       console.log("NOPE");
       console.error(response.statusText);
