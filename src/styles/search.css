@@ -1,20 +1,30 @@
-.search {
-  border-radius: 6px;
+:root {
+  --search-height: 40px;
 }
 
-.above {
+.search-bar-container {
   display: flex;
-  justify-content: space-between;
-  padding: 5px;
-  color: var(--c4);
+  height: var(--search-height);
 }
 
-.title {
-  display: flex;
-  justify-content: flex-start;
+.search-bar {
+  padding: 0px 10px 0px 10px;
+  border-radius: 10px 0px 0px 10px;
+  border-style: none;
+  font-size: 1.0em;
+  border-right: solid 3px var(--c1);
 }
 
-.duration {
-  display: flex;
-  justify-content: flex-end;
+.search-bar:hover {}
+
+.search-button {
+  border-radius: 0px 10px 10px 0px;
+  background-color: var(--c2);
+  cursor: pointer;
+  padding: 0px 10px 0px 10px;
+  font-size: 26px;
+}
+
+.search-button:hover {
+  background-color: var(--c3);
 }

@@ -1,20 +1,54 @@
-.music {
-  display: flex;
-  justify-content: space-between;
-  padding: 5px;
+.ml-header {
+  display: grid;
+  padding: 16px 16px 6px 16px;
+  grid-gap: 16px;
+  grid-template-columns: [index] 16px [first] 4fr [last] minmax(120px,1fr);
+  align-items: center;
+  border-bottom: solid;
+  border-width: 1px;
+  font-weight: bold;
+}
+
+.ml-header-duration {
+  justify-self: right;
+}
+
+.music-container {
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* padding: 5px; */
+  /* color: var(--c4); */
+}
+
+.music-container:hover {
+  background: var(--c1);
+}
+
+.music-grid {
+  display: grid;
+  grid-template-columns: [index] 16px [first] 4fr [last] minmax(120px,1fr);
+  padding: 10px 16px;
+  grid-gap: 16px;
+  align-items: center;
+}
+
+.music-num {
+  justify-self: center;
   color: var(--c4);
 }
 
-.music:hover {
-  background: #4d0d51;
+.music-title {
+  /* overflow: hidden; */
+  /* text-overflow: ellipsis; */
+  /* white-space: nowrap; */
 }
 
-.title {
-  display: flex;
-  justify-content: flex-start;
+.music-artist {
+  font-size: 0.8em;
+  color: var(--c4);
 }
 
-.duration {
-  display: flex;
-  justify-content: flex-end;
+.music-duration {
+  justify-self: right;
+  color: var(--c4);
 }

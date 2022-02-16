@@ -4,28 +4,32 @@ import '../styles/music.css';
 
 import useMusicPlayer from '../hooks/useMusicPlayer';
 
-function Music({ music }) {
+export default function Music({ music, songNum }) {
   const { playTrack, formatTime } = useMusicPlayer();
 
   const duration = formatTime(music.duration);
 
   const changeAudio = () => {
     const track = `${serveur}/uploads/${music.file_name}`;
-    playTrack(track, duration, music.title);
+    playTrack(track, music.duration, music.title);
   };
 
   return (
     <div
-      className="music"
+      className="music-container"
       role="button"
       onClick={changeAudio}
       onKeyDown={changeAudio}
       tabIndex={0}
     >
-      <div className="title">{music.title}</div>
-      <div className="duration">{duration}</div>
+      <div className="music-grid">
+        <div className="music-num">{songNum}</div>
+        <div className="music-info-box">
+          <div className="music-title">{music.title}</div>
+          <div className="music-artist">{music.user_id}</div>
+          </div>
+        <div className="music-duration">{formatTime(music.duration)}</div>
+      </div>
     </div>
   );
 }
-
-export default Music;
