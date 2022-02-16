@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
@@ -6,8 +7,21 @@ import MenuButton from './menu-button';
 import { serveur } from '../const';
 import '../styles/menu.css';
 import '../styles/login.css';
+=======
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import MenuLinkButton from "./menu-link-button";
+import MenuButton from "./menu-button";
+import ModalLogin from "./modal-login";
+import ModalRegister from "./modal-register";
+import { serveur } from "../const";
+import { TokenContext } from "../TokenContext";
+import "../styles/menu.css";
+import "../styles/login.css";
+>>>>>>> refs/remotes/origin/master
 
 const Menu = () => {
+  const context = useContext(TokenContext);
   const [menuIsSlim, setMenuIsSlim] = useState(true);
   const [loginModal, setLogin] = useState(false);
   const [registerModal, setRegister] = useState(false);
@@ -80,10 +94,18 @@ const Menu = () => {
       headers: { 'Content-Type': 'application/json' },
     });
 
+<<<<<<< HEAD
     if (res.ok) {
       const data = await res.json();
       console.log(data);
       navigate('profile'); // TODO navigation vers page profil
+=======
+    if (response.ok) {
+      let data = await response.json();
+      context.setToken(data.token);
+      console.log(context.token);
+      navigate("profile"); // TODO navigation vers page profil
+>>>>>>> refs/remotes/origin/master
       setLogin(false);
     } else {
       console.log('NOPE');
@@ -152,16 +174,24 @@ const Menu = () => {
         >
           <div className="menu-item-icon">
             {menuIsSlim ? (
+<<<<<<< HEAD
               <i className="fas fa-chevron-right" />
             ) : (
               <i className="fas fa-chevron-left" />
+=======
+              <i className="fas fa-chevron-right"></i>
+            ) : (
+              <i className="fas fa-chevron-left"></i>
+>>>>>>> refs/remotes/origin/master
             )}
           </div>
           {!menuIsSlim && <div className="menu-item-text">Collapse</div>}
         </div>
       </div>
-      <Modal
+
+      <ModalLogin
         isOpen={loginModal}
+<<<<<<< HEAD
         onRequestClose={() => {
           setLogin(false);
         }}
@@ -257,6 +287,23 @@ const Menu = () => {
           </form>
         </div>
       </Modal>
+=======
+        onRequestClose={() => setLogin(false)}
+        onSubmit={handleLogin}
+        userCred={handleChangeUserCred}
+        password={handleChangePassword}
+        switchMod={switchRegister}
+      />
+
+      <ModalRegister
+        isOpen={registerModal}
+        onRequestClose={() => setRegister(false)}
+        onSubmit={handleRegister}
+        userCred={handleChangeUserCred}
+        password={handleChangePassword}
+        switchMod={switchLogin}
+      />
+>>>>>>> refs/remotes/origin/master
     </div>
   );
 };
