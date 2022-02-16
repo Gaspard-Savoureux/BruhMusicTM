@@ -1,28 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import '../styles/home.css';
 import '../styles/search.css';
-import '../styles/song.css'
-
-import { serveur } from '../const';
+import '../styles/song.css';
 
 export default function Profile() {
-  
-
   return (
     <div className="home-container">
       <h1>Favorite Albums</h1>
       <h1>Liked Songs</h1>
-      <div class="song-container">
-        <img src="https://upload.wikimedia.org/wikipedia/en/e/ed/The_Weeknd_-_Kiss_Land.png" class="song-image"/>
-        <div class="song-description">
+      <div className="song-container">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/en/e/ed/The_Weeknd_-_Kiss_Land.png"
+          alt=""
+          className="song-image"
+        />
+        <div className="song-description">
           <p>Song Title</p>
           <p>Artist</p>
         </div>
       </div>
-      <div class="song-container">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Blood_of_the_Saints.jpg/220px-Blood_of_the_Saints.jpg" class="song-image"/>
-        <div class="song-description">
+      <div className="song-container">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/en/thumb/3/32/Blood_of_the_Saints.jpg/220px-Blood_of_the_Saints.jpg"
+          alt=""
+          className="song-image"
+        />
+        <div className="song-description">
           <p>Song Title</p>
           <p>Artist</p>
         </div>

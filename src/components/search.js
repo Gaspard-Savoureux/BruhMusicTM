@@ -12,39 +12,39 @@ export default function Search() {
   const [searchFilter, setSearchFilter] = useState('');
   const exampleSongs = [
     {
-      "id": 1,
-      "title": "little_dark_age",
-      "file_name": "|-1-|--little_dark_age.flac",
-      "duration": 326.751,
-      "plays": 0,
-      "uploaded": "2022-02-10T20:49:43.000Z",
-      "image": null,
-      "user_id": 1,
-      "album_id": null
+      id: 1,
+      title: 'little_dark_age',
+      file_name: '|-1-|--little_dark_age.flac',
+      duration: 326.751,
+      plays: 0,
+      uploaded: '2022-02-10T20:49:43.000Z',
+      image: null,
+      user_id: 1,
+      album_id: null,
     },
     {
-      "id": 3,
-      "title": "alt-J (∆) - Fitzpleasure (Official Music Video)",
-      "file_name": "|-1-|--alt-J (∆) - Fitzpleasure (Official Music Video).flac",
-      "duration": 221.344,
-      "plays": 0,
-      "uploaded": "2022-02-10T22:12:47.000Z",
-      "image": null,
-      "user_id": 1,
-      "album_id": null
+      id: 3,
+      title: 'alt-J (∆) - Fitzpleasure (Official Music Video)',
+      file_name: '|-1-|--alt-J (∆) - Fitzpleasure (Official Music Video).flac',
+      duration: 221.344,
+      plays: 0,
+      uploaded: '2022-02-10T22:12:47.000Z',
+      image: null,
+      user_id: 1,
+      album_id: null,
     },
     {
-      "id": 4,
-      "title": "alt-J (∆) - Fitzpleasure (Official Music Video)",
-      "file_name": "|-1-|--alt-J (∆) - Fitzpleasure (Official Music Video).flac",
-      "duration": 221.344,
-      "plays": 0,
-      "uploaded": "2022-02-10T22:12:47.000Z",
-      "image": null,
-      "user_id": 1,
-      "album_id": null
+      id: 4,
+      title: 'alt-J (∆) - Fitzpleasure (Official Music Video)',
+      file_name: '|-1-|--alt-J (∆) - Fitzpleasure (Official Music Video).flac',
+      duration: 221.344,
+      plays: 0,
+      uploaded: '2022-02-10T22:12:47.000Z',
+      image: null,
+      user_id: 1,
+      album_id: null,
     },
-]
+  ];
 
   function handleSearchChange(event) {
     setSearchFilter(event.target.value);
@@ -57,10 +57,10 @@ export default function Search() {
       const res = await fetch(url);
       if (res.ok) {
         const data = await res.json();
-        setFilterregisterModaledMusics(data);
+        setFilteredMusic(data);
       } else {
         console.log("une erreur s'est produite lors de l'appel à /music");
-      }registerModal
+      }
     } else {
       setFilteredMusic(filteredMusic);
     }
@@ -77,10 +77,10 @@ export default function Search() {
           onChange={handleSearchChange}
         />
         <div className="search-button" onClick={onSubmitSearch}>
-          <i class="fas fa-search" aria-hidden="true"></i>
+          <i className="fas fa-search" aria-hidden="true" />
         </div>
       </form>
-      <MusicList music={exampleSongs} />
+      <MusicList music={filteredMusic} />
     </div>
   );
 }
