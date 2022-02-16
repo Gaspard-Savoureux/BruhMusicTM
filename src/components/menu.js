@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import {useNavigate} from "react-router-dom";
-import Modal from 'react-modal';
-import MenuLinkButton from './menu-link-button';
-import MenuButton from './menu-button';
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import MenuLinkButton from "./menu-link-button";
+import MenuButton from "./menu-button";
+import ModalLogin from "./modal-login";
+import ModalRegister from "./modal-register";
 import { serveur } from "../const";
-import '../styles/menu.css';
-import '../styles/login.css';
-
+import { TokenContext } from "../TokenContext";
+import "../styles/menu.css";
+import "../styles/login.css";
 
 const Menu = () => {
+  const context = useContext(TokenContext);
   const [menuIsSlim, setMenuIsSlim] = useState(true);
   const [loginModal, setLogin] = useState(false);
   const [registerModal, setRegister] = useState(false);
@@ -83,8 +85,9 @@ const Menu = () => {
 
     if (response.ok) {
       let data = await response.json();
-      console.log(data);
-      navigate('profile'); // TODO navigation vers page profil
+      context.setToken(data.token);
+      console.log(context.token);
+      navigate("profile"); // TODO navigation vers page profil
       setLogin(false);
     } else {
       console.log("NOPE");
@@ -98,10 +101,30 @@ const Menu = () => {
         <img className="menu-logo" src="./bunny.png" alt="logo" />
       </div>
       <div className="menu-body">
-        <MenuLinkButton to="/" icon="fas fa-home" text="Home" menuIsSlim={menuIsSlim} />
-        <MenuLinkButton to="/search" icon="fas fa-search" text="Search" menuIsSlim={menuIsSlim} />
-        <MenuLinkButton to="/" icon="fas fa-music" text="Playlists" menuIsSlim={menuIsSlim} />
-        <MenuLinkButton to="/" icon="fas fa-heart" text="Favorites" menuIsSlim={menuIsSlim} />
+        <MenuLinkButton
+          to="/"
+          icon="fas fa-home"
+          text="Home"
+          menuIsSlim={menuIsSlim}
+        />
+        <MenuLinkButton
+          to="/search"
+          icon="fas fa-search"
+          text="Search"
+          menuIsSlim={menuIsSlim}
+        />
+        <MenuLinkButton
+          to="/"
+          icon="fas fa-music"
+          text="Playlists"
+          menuIsSlim={menuIsSlim}
+        />
+        <MenuLinkButton
+          to="/"
+          icon="fas fa-heart"
+          text="Favorites"
+          menuIsSlim={menuIsSlim}
+        />
       </div>
       <div className="menu-meme">
         {!menuIsSlim && (
@@ -109,116 +132,56 @@ const Menu = () => {
         )}
       </div>
       <div className="menu-footer">
-        <MenuButton onClick={() => setLogin(true)} icon="fas fa-sign-in-alt" text="Login" menuIsSlim={menuIsSlim} />
-        <MenuButton onClick={() => setRegister(true)} icon="fas fa-edit" text="Register" menuIsSlim={menuIsSlim} />
-        <MenuLinkButton to="/" icon="fas fa-cog" text="Settings" menuIsSlim={menuIsSlim} />
-        <div className="menu-item collapse-menu-button" onClick={toggleMenuIsSlim}>
+        <MenuButton
+          onClick={() => setLogin(true)}
+          icon="fas fa-sign-in-alt"
+          text="Login"
+          menuIsSlim={menuIsSlim}
+        />
+        <MenuButton
+          onClick={() => setRegister(true)}
+          icon="fas fa-edit"
+          text="Register"
+          menuIsSlim={menuIsSlim}
+        />
+        <MenuLinkButton
+          to="/"
+          icon="fas fa-cog"
+          text="Settings"
+          menuIsSlim={menuIsSlim}
+        />
+        <div
+          className="menu-item collapse-menu-button"
+          onClick={toggleMenuIsSlim}
+        >
           <div className="menu-item-icon">
-            { menuIsSlim
-             ? <i className="fas fa-chevron-right"></i>
-             : <i className="fas fa-chevron-left"></i>
-            }
+            {menuIsSlim ? (
+              <i className="fas fa-chevron-right"></i>
+            ) : (
+              <i className="fas fa-chevron-left"></i>
+            )}
           </div>
           {!menuIsSlim && <div className="menu-item-text">Collapse</div>}
         </div>
       </div>
-      <Modal
+
+      <ModalLogin
         isOpen={loginModal}
-        onRequestClose={() => {
-          setLogin(false);
-        }}
-        portalClassName="modal"
-        style={{
-          content: {
-            background: "linear-gradient(120deg,#2980b9, #8e44ad)",
-            margin: 0,
-            padding: 0,
-            overflow: "hidden",
-          },
-        }}
-      >
-        <div class="center">
-          <h1>Login</h1>
-          <form method="post" onSubmit={handleLogin}>
-            <div class="txt_field">
-              <input
-                class="input-username"
-                type="text"
-                onChange={handleChangeUserCred}
-                required
-              />
-              <span></span>
-              <label>Username</label>
-            </div>
-            <div class="txt_field">
-              <input
-                class="input-password"
-                type="password"
-                onChange={handleChangePassword}
-                required
-              />
-              <span></span>
-              <label>Password</label>
-            </div>
-            <div class="pass">Forgot Password?</div>
-            <input type="submit" value="Login" />
-            <div class="signup_link">
-              Not a member?{" "}
-              <a href="#" onClick={switchRegister}>
-                Signup
-              </a>
-            </div>
-          </form>
-        </div>
-      </Modal>
-      <Modal
+        onRequestClose={() => setLogin(false)}
+        onSubmit={handleLogin}
+        userCred={handleChangeUserCred}
+        password={handleChangePassword}
+        switchMod={switchRegister}
+      />
+
+      <ModalRegister
         isOpen={registerModal}
-        onRequestClose={() => {
-          setRegister(false);
-        }}
-        portalClassName="modal"
-        style={{
-          content: {
-            background: "linear-gradient(120deg,#2980b9, #8e44ad)",
-            margin: 0,
-            padding: 0,
-            overflow: "hidden",
-          },
-        }}
-      >
-        <div class="center">
-          <h1>Register</h1>
-          <form method="post" onSubmit={handleRegister}>
-            <div class="txt_field">
-              <input
-                class="input-username"
-                type="text"
-                onChange={handleChangeUserCred}
-                required
-              />
-              <span></span>
-              <label>Username</label>
-            </div>
-            <div class="txt_field">
-              <input
-                class="input-password"
-                type="password"
-                onChange={handleChangePassword}
-                required
-              />
-              <span></span>
-              <label>Password</label>
-            </div>
-            <input type="submit" value="Register" />
-            <div class="signup_link">
-              Already a member?{" "}
-              <a href="#" onClick={switchLogin}>
-                Login
-              </a>
-            </div>
-          </form>
-        </div>
-      </Modal>
+        onRequestClose={() => setRegister(false)}
+        onSubmit={handleRegister}
+        userCred={handleChangeUserCred}
+        password={handleChangePassword}
+        switchMod={switchLogin}
+      />
     </div>
   );
 };
