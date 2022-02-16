@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import { HashRouter, Route, Routes } from 'react-router-dom';
 
@@ -7,19 +6,9 @@ import Mediaplayer from './components/mediaplayer';
 import Menu from './components/menu';
 import Search from './components/search';
 import Profile from './components/profile';
-=======
-import React, { useMemo, useState } from "react";
-import { HashRouter, Route, Routes } from "react-router-dom";
 
-import Home from "./components/home";
-import Mediaplayer from "./components/mediaplayer";
-import Menu from "./components/menu";
-import Search from "./components/search";
-import Profile from "./components/profile";
->>>>>>> refs/remotes/origin/master
-
-import { MusicPlayerProvider } from "./MusicPlayerContext";
-import { TokenContextProvider } from "./TokenContext";
+import { MusicPlayerProvider } from './MusicPlayerContext';
+import { TokenContextProvider } from './TokenContext';
 
 export default function App() {
   return (

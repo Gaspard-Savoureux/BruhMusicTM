@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import MusicList from './music-list';
 
+import MusicList from './music-list';
 import Collection from './collection';
 
 import '../styles/home.css';
 import '../styles/search.css';
+
 import { serveur } from '../const';
 
 export default function Search() {
