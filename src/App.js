@@ -5,6 +5,7 @@ import Home from './components/home';
 import Mediaplayer from './components/mediaplayer';
 import Menu from './components/menu';
 import Search from './components/search';
+import Profile from './components/profile'
 
 import { MusicPlayerProvider } from './MusicPlayerContext';
 
@@ -19,6 +20,7 @@ export default function App() {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/search" element={<Search />} />
+                <Route path="/profile" element={<Profile />} />
               </Routes>
             </HashRouter>
           </div>
