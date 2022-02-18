@@ -11,6 +11,7 @@ const Mediaplayer = () => {
     changeProgress,
     formatTime,
     audio,
+    isFavorite,
   } = useMusicPlayer();
 
   const [timelineIsClicked, setTimelineIsClicked] = useState(false);
@@ -143,13 +144,13 @@ const Mediaplayer = () => {
             >
               <i className="fas fa-step-forward" />
             </div>
-            {/* <div className="media-player-button"> */}
-            {/*   {musicIsFavorite ? ( */}
-            {/*     <i className="fas fa-heart" /> */}
-            {/*   ) : ( */}
-            {/*     <i className="far fa-heart" /> */}
-            {/*   )} */}
-            {/* </div> */}
+            <div className="media-player-button">
+              {isFavorite ? (
+                <i className="fas fa-heart" />
+              ) : (
+                <i className="far fa-heart" />
+              )}
+            </div>
           </div>
           <div className="media-player-timeline-container">
             <div className="current-time">{currentTime}</div>

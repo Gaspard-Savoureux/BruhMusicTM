@@ -2,7 +2,7 @@
   display: grid;
   padding: 16px 16px 6px 16px;
   grid-gap: 16px;
-  grid-template-columns: [index] 16px [first] 4fr [last] minmax(120px,1fr);
+  grid-template-columns: [index] 16px [first] 4fr [last] minmax(120px, 1fr);
   align-items: center;
   border-bottom: solid;
   border-width: 1px;
@@ -26,7 +26,7 @@
 
 .music-grid {
   display: grid;
-  grid-template-columns: [index] 16px [first] 4fr [last] minmax(120px,1fr);
+  grid-template-columns: [index] 16px [first] 4fr [last] minmax(120px, 1fr);
   padding: 10px 16px;
   grid-gap: 16px;
   align-items: center;
@@ -48,7 +48,19 @@
   color: var(--c4);
 }
 
+.music-box-end {
+  display: flex;
+  justify-content: flex-end;
+}
+.music-box-end > div {
+  margin: 10px;
+}
+
 .music-duration {
-  justify-self: right;
+  justify-self: end;
+  color: var(--c4);
+}
+.music-favorite {
+  justify-self: start;
   color: var(--c4);
 }

@@ -1,48 +1,30 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MenuLinkButton from './menu-link-button';
 import MenuButton from './menu-button';
 import ModalLogin from './modal-login';
 import ModalRegister from './modal-register';
 import { serveur } from '../const';
-import { TokenContext } from '../TokenContext';
+import useToken from '../hooks/useToken';
 import '../styles/menu.css';
 import '../styles/login.css';
 
 const Menu = () => {
-  const context = useContext(TokenContext);
   const [menuIsSlim, setMenuIsSlim] = useState(true);
   const [loginModal, setLogin] = useState(false);
   const [registerModal, setRegister] = useState(false);
   const [userCred, setUserCred] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigate = useNavigate();
+  const { getToken } = useToken();
   const toggleMenuIsSlim = () => setMenuIsSlim(!menuIsSlim);
-
-  function handleChangeUserCred(event) {
-    setUserCred(event.target.value);
-  }
-
-  function handleChangePassword(event) {
-    setPassword(event.target.value);
-  }
-
-  function handleRegister(e) {
-    e.preventDefault();
-    register();
-  }
-
-  function handleLogin(e) {
-    e.preventDefault();
-    login();
-  }
 
   // Test
   function switchLogin() {
     setRegister(false);
     setLogin(true);
   }
+
   function switchRegister() {
     setLogin(false);
     setRegister(true);
@@ -71,28 +53,17 @@ const Menu = () => {
     }
   }
 
-  async function login() {
-    const bodyContent = {
-      userCred,
-      password,
-    };
+  function handleChangeUserCred(event) {
+    setUserCred(event.target.value);
+  }
 
-    const res = await fetch(`${serveur}/auth/create-token`, {
-      method: 'POST',
-      body: JSON.stringify(bodyContent),
-      headers: { 'Content-Type': 'application/json' },
-    });
+  function handleChangePassword(event) {
+    setPassword(event.target.value);
+  }
 
-    if (res.ok) {
-      const data = await res.json();
-      context.setToken(data.token);
-      console.log(context.token);
-      navigate('profile'); // TODO navigation vers page profil
-      setLogin(false);
-    } else {
-      console.log('NOPE');
-      console.error(res.statusText);
-    }
+  function handleRegister(e) {
+    e.preventDefault();
+    register();
   }
 
   return (
@@ -119,12 +90,14 @@ const Menu = () => {
           text="Playlists"
           menuIsSlim={menuIsSlim}
         />
-        <MenuLinkButton
-          to="/"
-          icon="fas fa-heart"
-          text="Favorites"
-          menuIsSlim={menuIsSlim}
-        />
+        {getToken() && (
+          <MenuLinkButton
+            to="/favorite"
+            icon="fas fa-heart"
+            text="Favorites"
+            menuIsSlim={menuIsSlim}
+          />
+        )}
       </div>
       <div className="menu-meme">
         {!menuIsSlim && (
@@ -152,13 +125,13 @@ const Menu = () => {
         />
         <div
           className="menu-item collapse-menu-button"
-          onClick={toggleMenuIsSlim}
+          onClick={() => toggleMenuIsSlim}
         >
           <div className="menu-item-icon">
             {menuIsSlim ? (
-              <i className="fas fa-chevron-right"></i>
+              <i className="fas fa-chevron-right" />
             ) : (
-              <i className="fas fa-chevron-left"></i>
+              <i className="fas fa-chevron-left" />
             )}
           </div>
           {!menuIsSlim && <div className="menu-item-text">Collapse</div>}
@@ -168,19 +141,20 @@ const Menu = () => {
       <ModalLogin
         isOpen={loginModal}
         onRequestClose={() => setLogin(false)}
-        onSubmit={() => handleLogin}
-        userCred={() => handleChangeUserCred}
-        password={() => handleChangePassword}
-        switchMod={() => switchRegister}
+        setLogin={setLogin}
+        // onSubmit={() => handleLogin()}
+        // userCred={() => handleChangeUserCred()}
+        // password={() => handleChangePassword()}
+        switchMod={() => switchRegister()}
       />
 
       <ModalRegister
         isOpen={registerModal}
         onRequestClose={() => setRegister(false)}
-        onSubmit={() => handleRegister}
-        userCred={() => handleChangeUserCred}
-        password={() => handleChangePassword}
-        switchMod={() => switchLogin}
+        onSubmit={() => handleRegister()}
+        userCred={() => handleChangeUserCred()}
+        password={() => handleChangePassword()}
+        switchMod={() => switchLogin()}
       />
     </div>
   );

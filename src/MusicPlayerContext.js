@@ -12,6 +12,7 @@ const MusicPlayerProvider = (props) => {
     premute: null,
     volume: -1,
     duration: '--',
+    isFavorite: false,
   });
 
   return (

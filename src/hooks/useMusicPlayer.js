@@ -13,7 +13,7 @@ const useMusicPlayer = () => {
     setState({ ...state, isPlaying: !state.isPlaying });
   }
 
-  function playTrack(track, duration, currentTrackName) {
+  function playTrack(track, duration, currentTrackName, isFavorite) {
     if (track === state.currentTrackName) {
       togglePlay();
     }
@@ -26,6 +26,7 @@ const useMusicPlayer = () => {
       currentTrackName,
       duration,
       isPlaying: true,
+      isFavorite,
     });
   }
   // function playTrack(index) {
@@ -113,6 +114,7 @@ const useMusicPlayer = () => {
     // currentTime,
     formatTime,
     audio: state.audioPlayer,
+    isFavorite: state.isFavorite,
   };
 };
 
