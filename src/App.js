@@ -6,6 +6,8 @@ import Mediaplayer from './components/mediaplayer';
 import Menu from './components/menu';
 import Search from './components/search';
 import Profile from './components/profile';
+import Settings from './components/settings';
+import AlbumInfo from './components/album-info';
 
 import { MusicPlayerProvider } from './MusicPlayerContext';
 import { TokenContextProvider } from './TokenContext';
@@ -23,6 +25,8 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/search" element={<Search />} />
                   <Route path="/profile" element={<Profile />} />
+                  <Route path="/settings" element={<Settings />} />
+                  <Route path="/album/:id" element={<AlbumInfo />} />
                 </Routes>
               </HashRouter>
             </TokenContextProvider>

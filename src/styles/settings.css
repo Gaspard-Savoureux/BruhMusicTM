@@ -1,0 +1,14 @@
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  overflow-x: hidden;
+  padding: 0px 10px 110px 10px;
+}
+
+.settings-label {
+  margin-top: 10px;
+  font-size: 2em;
+  font-weight: bold;
+}

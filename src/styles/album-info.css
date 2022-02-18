@@ -1,0 +1,37 @@
+.albuminfo-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  padding: 0px 10px 110px 10px;
+  overflow-y: scroll;
+}
+
+.albuminfo-header {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.albuminfo-image {
+  height: 300px;
+  width: 300px;
+  margin: 0 30px 0 30px;
+}
+
+.albuminfo-infobox {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.albuminfo-title {
+  font-size: 5em;
+  font-weight: bold;
+}
+
+.albuminfo-artist {
+  font-size: 2em;
+  font-weight: bold;
+}

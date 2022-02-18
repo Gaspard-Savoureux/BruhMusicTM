@@ -10,9 +10,7 @@ const MusicList = ({ music }) => {
         <div className="ml-header-duration">Duration</div>
       </div>
       <div className="ml-list">
-        {music.map(item => (
-          <Music music={item} songNum={music.indexOf(item) + 1} />
-        ))}
+        {music.map(item => <Music music={item} songNum={music.indexOf(item) + 1} key={item.id} />)}
       </div>
     </div>
   );

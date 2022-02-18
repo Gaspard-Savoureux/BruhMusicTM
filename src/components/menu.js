@@ -9,7 +9,7 @@ import { TokenContext } from '../TokenContext';
 import '../styles/menu.css';
 import '../styles/login.css';
 
-const Menu = () => {
+function Menu() {
   const context = useContext(TokenContext);
   const [menuIsSlim, setMenuIsSlim] = useState(true);
   const [loginModal, setLogin] = useState(false);
@@ -19,24 +19,6 @@ const Menu = () => {
 
   const navigate = useNavigate();
   const toggleMenuIsSlim = () => setMenuIsSlim(!menuIsSlim);
-
-  function handleChangeUserCred(event) {
-    setUserCred(event.target.value);
-  }
-
-  function handleChangePassword(event) {
-    setPassword(event.target.value);
-  }
-
-  function handleRegister(e) {
-    e.preventDefault();
-    register();
-  }
-
-  function handleLogin(e) {
-    e.preventDefault();
-    login();
-  }
 
   // Test
   function switchLogin() {
@@ -87,12 +69,30 @@ const Menu = () => {
       const data = await res.json();
       context.setToken(data.token);
       console.log(context.token);
-      navigate('profile'); // TODO navigation vers page profil
+      navigate('profile'); // TODO navigation vers page profil ### why? pourquoi pas juste fermer la modale???
       setLogin(false);
     } else {
       console.log('NOPE');
       console.error(res.statusText);
     }
+  }
+
+  function handleChangeUserCred(event) {
+    setUserCred(event.target.value);
+  }
+
+  function handleChangePassword(event) {
+    setPassword(event.target.value);
+  }
+
+  function handleRegister(e) {
+    e.preventDefault();
+    register();
+  }
+
+  function handleLogin(e) {
+    e.preventDefault();
+    login();
   }
 
   return (
@@ -145,7 +145,7 @@ const Menu = () => {
           menuIsSlim={menuIsSlim}
         />
         <MenuLinkButton
-          to="/"
+          to="/settings"
           icon="fas fa-cog"
           text="Settings"
           menuIsSlim={menuIsSlim}
@@ -156,9 +156,9 @@ const Menu = () => {
         >
           <div className="menu-item-icon">
             {menuIsSlim ? (
-              <i className="fas fa-chevron-right"></i>
+              <i className="fas fa-chevron-right" />
             ) : (
-              <i className="fas fa-chevron-left"></i>
+              <i className="fas fa-chevron-left" />
             )}
           </div>
           {!menuIsSlim && <div className="menu-item-text">Collapse</div>}

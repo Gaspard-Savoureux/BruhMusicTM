@@ -6,9 +6,9 @@ import '../styles/home.css';
 
 const Home = () => {
   const albumsTest = [
-    { title: "album XD", artist: "artist", cover: "./sample.mp3", cover: "bunny.png" },
-    { title: "long album name hjdhb XD2", artist: "artist", cover: "./sample.mp3", cover: "bunny.png" },
-    { title: "album XD3", artist: "artist", cover: "./sample.mp3", cover: "bunny.png" },
+    { title: "album XD", artist: "artist", cover: "./sample.mp3", cover: "bunny.png", id: 1 },
+    { title: "long album name hjdhb XD2", artist: "artist", cover: "./sample.mp3", cover: "bunny.png", id: 1 },
+    { title: "album XD3", artist: "artist", cover: "./sample.mp3", cover: "bunny.png", id: 1 },
   ];
 
   return (

@@ -52,3 +52,12 @@ code {
   display: flex;
   width: 100%;
 }
+
+textarea:focus, input:focus, button:focus, div:focus, a:focus {
+  outline: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}

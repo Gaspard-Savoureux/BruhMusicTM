@@ -9,8 +9,10 @@ const MusicPlayerProvider = (props) => {
     currentTrackIndex: null,
     currentTrackName: '‎',
     isPlaying: false,
+    isLoaded: false,
+    isMute: false,
     premute: null,
-    volume: -1,
+    volume: 1,
     duration: '--',
   });
 

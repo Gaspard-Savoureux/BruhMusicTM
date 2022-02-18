@@ -8,7 +8,12 @@ const Mediaplayer = () => {
     currentTrackName,
     togglePlay,
     isPlaying,
+    isLoaded,
+    isMute,
+    mute,
     changeProgress,
+    volume,
+    setVolume,
     formatTime,
     audio,
   } = useMusicPlayer();
@@ -19,8 +24,8 @@ const Mediaplayer = () => {
   // const [musicIsFavorite, setMusicIsFavorite] = useState(false);
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('0:00');
-  const [volume, setVolume] = useState(1);
-  const [volumePreMute, setVolumePreMute] = useState(1);
+  // const [volume, setVolume] = useState(1);
+  // const [volumePreMute, setVolumePreMute] = useState(1);
   const timeline = useRef();
   const timelineProgressBar = useRef();
   const volumeSlider = useRef();
@@ -61,13 +66,15 @@ const Mediaplayer = () => {
 
   // TODO factoriser les fonctions "mouseDown"
   const mouseDownTimeline = (event) => {
+    if (!isLoaded) return;
     setTimelineIsClicked(true);
     let progressValue = changeProgress(event, timeline);
     timelineProgressBar.current.style.width = `${progressValue}%`;
     document.onmousemove = (eventMouseMove) => {
+      eventMouseMove.preventDefault();
       progressValue = changeProgress(eventMouseMove, timeline);
       timelineProgressBar.current.style.width = `${progressValue}%`;
-      currentTime(formatTime((progressValue / 100) * audio.duration));
+      setCurrentTime(formatTime((progressValue / 100) * audio.duration));
     };
     document.onmouseup = () => {
       audio.currentTime = (progressValue / 100) * audio.duration;
@@ -83,6 +90,7 @@ const Mediaplayer = () => {
     setVolume(progressValue / 100);
     audio.volume = progressValue / 100;
     document.onmousemove = (eventMouseMove) => {
+      eventMouseMove.preventDefault();
       progressValue = changeProgress(
         eventMouseMove,
         volumeSlider,
@@ -98,16 +106,16 @@ const Mediaplayer = () => {
     };
   };
 
-  const mute = () => {
-    if (volume !== -1) {
-      audio.volume = 0;
-      setVolumePreMute(volume);
-      setVolume(-1);
-    } else {
-      audio.volume = volumePreMute;
-      setVolume(volumePreMute);
-    }
-  };
+  // const mute = () => {
+  //   if (volume !== -1) {
+  //     audio.volume = 0;
+  //     setVolumePreMute(volume);
+  //     setVolume(-1);
+  //   } else {
+  //     audio.volume = volumePreMute;
+  //     setVolume(volumePreMute);
+  //   }
+  // };
 
   return (
     <div className="media-player">
@@ -170,11 +178,11 @@ const Mediaplayer = () => {
           </div>
         </div>
         <div className="media-player-items-right">
-          <div className="media-player-button" onClick={() => mute()}>
-            {volume >= 0.3 && <i className="fas fa-volume-up" />}
-            {volume < 0.3 && volume > 0 && <i className="fas fa-volume-down" />}
-            {volume === 0 && <i className="fas fa-volume-off" />}
-            {volume === -1 && <i className="fas fa-volume-mute" />}
+          <div className="media-player-button" onClick={mute}>
+            {volume >= 0.3 && !isMute && <i className="fas fa-volume-up" />}
+            {volume < 0.3 && volume > 0 && !isMute && <i className="fas fa-volume-down" />}
+            {volume === 0 && !isMute && <i className="fas fa-volume-off" />}
+            {isMute && <i className="fas fa-volume-mute" />}
           </div>
           <div
             className="media-player-volume-clickable"
