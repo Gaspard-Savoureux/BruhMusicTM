@@ -15,7 +15,7 @@ function Menu() {
   const [userCred, setUserCred] = useState('');
   const [password, setPassword] = useState('');
 
-  const { getToken } = useToken();
+  const { changeToken, getToken } = useToken();
   const toggleMenuIsSlim = () => setMenuIsSlim(!menuIsSlim);
 
   // Test
@@ -60,20 +60,13 @@ function Menu() {
     setPassword(event.target.value);
   }
 
-  // if (res.ok) {
-  //   const data = await res.json();
-  //   context.setToken(data.token);
-  //   console.log(context.token);
-  //   navigate('profile'); // TODO navigation vers page profil ### why? pourquoi pas juste fermer la modale???
-  //   setLogin(false);
-  // } else {
-  //   console.log('NOPE');
-  //   console.error(res.statusText);
-  // }
-
   function handleRegister(e) {
     e.preventDefault();
     register();
+  }
+
+  function chevronHandler() {
+    return menuIsSlim ? 'fas fa-chevron-right' : 'fas fa-chevron-left';
   }
 
   return (
@@ -115,12 +108,21 @@ function Menu() {
         )}
       </div>
       <div className="menu-footer">
-        <MenuButton
-          onClick={() => setLogin(true)}
-          icon="fas fa-sign-in-alt"
-          text="Login"
-          menuIsSlim={menuIsSlim}
-        />
+        {getToken() ? (
+          <MenuButton
+            onClick={() => changeToken('')}
+            icon="fas fa-sign-out-alt"
+            text="Login"
+            menuIsSlim={menuIsSlim}
+          />
+        ) : (
+          <MenuButton
+            onClick={() => setLogin(true)}
+            icon="fas fa-sign-in-alt"
+            text="Login"
+            menuIsSlim={menuIsSlim}
+          />
+        )}
         <MenuButton
           onClick={() => setRegister(true)}
           icon="fas fa-edit"
@@ -134,8 +136,10 @@ function Menu() {
           menuIsSlim={menuIsSlim}
         />
         <div
+          role="button"
           className="menu-item collapse-menu-button"
-          onClick={() => toggleMenuIsSlim}
+          onClick={toggleMenuIsSlim}
+          tabIndex={0}
         >
           <div className="menu-item-icon">
             {menuIsSlim ? (
@@ -152,9 +156,6 @@ function Menu() {
         isOpen={loginModal}
         onRequestClose={() => setLogin(false)}
         setLogin={setLogin}
-        // onSubmit={() => handleLogin()}
-        // userCred={() => handleChangeUserCred()}
-        // password={() => handleChangePassword()}
         switchMod={() => switchRegister()}
       />
 

@@ -7,7 +7,13 @@ import '../styles/login.css';
 import useToken from '../hooks/useToken';
 import { serveur } from '../const';
 
-const ModalLogin = ({ isOpen, onRequestClose, setLogin, switchMod }) => {
+const ModalLogin = ({
+  //
+  isOpen,
+  onRequestClose,
+  setLogin,
+  switchMod,
+}) => {
   const [userCred, setUserCred] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -72,23 +78,24 @@ const ModalLogin = ({ isOpen, onRequestClose, setLogin, switchMod }) => {
               onChange={handleChangeUserCred}
               required
             />
-            <span></span>
+            <span />
             <label>Username</label>
           </div>
           <div className="txt_field">
             <input
+              id="username"
               className="input-password"
               type="password"
               onChange={handleChangePassword}
               required
             />
-            <span></span>
+            <span />
             <label>Password</label>
           </div>
           <div className="pass">Forgot Password?</div>
           <input type="submit" value="Login" />
           <div className="signup_link">
-            Not a member?{' '}
+            Not a member? &nbsp;
             <a to="/" onClick={switchMod}>
               Signup
             </a>
