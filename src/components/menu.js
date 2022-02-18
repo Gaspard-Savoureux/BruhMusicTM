@@ -65,10 +65,6 @@ function Menu() {
     register();
   }
 
-  function chevronHandler() {
-    return menuIsSlim ? 'fas fa-chevron-right' : 'fas fa-chevron-left';
-  }
-
   return (
     <div className="menu" style={{ width: menuIsSlim ? '50px' : '200px' }}>
       <div className="menu-header">
@@ -123,12 +119,22 @@ function Menu() {
             menuIsSlim={menuIsSlim}
           />
         )}
-        <MenuButton
-          onClick={() => setRegister(true)}
-          icon="fas fa-edit"
-          text="Register"
-          menuIsSlim={menuIsSlim}
-        />
+        {getToken() ? (
+          <MenuLinkButton
+            to="/profile"
+            icon="fas fa-brain"
+            text="Profile"
+            menuIsSlim={menuIsSlim}
+          />
+        ) : (
+          <MenuButton
+            onClick={() => setRegister(true)}
+            icon="fas fa-edit"
+            text="Register"
+            menuIsSlim={menuIsSlim}
+          />
+        )}
+
         <MenuLinkButton
           to="/settings"
           icon="fas fa-cog"

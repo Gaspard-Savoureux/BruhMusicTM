@@ -29,7 +29,11 @@ const AlbumInfo = () => {
   return (
     <div className="albuminfo-container">
       <div className="albuminfo-header">
-        <img className="albuminfo-image" src={album?.cover ?? './bunny.png'} alt="album cover" />
+        <img
+          className="albuminfo-image"
+          src={album?.cover ?? './bunny.png'}
+          alt="album cover"
+        />
         <div className="albuminfo-infobox">
           <div className="albuminfo-title">{album?.title ?? ''}</div>
           <div className="albuminfo-artist">{album?.artist ?? ''}</div>
