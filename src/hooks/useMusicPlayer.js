@@ -5,6 +5,7 @@ const useMusicPlayer = () => {
   const [state, setState] = useContext(MusicPlayerContext);
 
   function togglePlay() {
+    if (!state.isLoaded) return;
     if (state.isPlaying) {
       state.audioPlayer.pause();
     } else {
@@ -14,21 +15,28 @@ const useMusicPlayer = () => {
   }
 
   function playTrack(track, duration, currentTrackName, isFavorite) {
-    if (track === state.currentTrackName) {
-      togglePlay();
+    // if (track === state.currentTrackName) togglePlay();
+
+    // state.audioPlayer.pause();
+    state.audioPlayer.setAttribute('src', track);
+    state.audioPlayer.load();
+    if (state.isMute) {
+      state.audioPlayer.volume = 0;
+    } else {
+      state.audioPlayer.volume = state.volume;
     }
-    state.audioPlayer.pause();
-    state.audioPlayer = new Audio(track);
     state.audioPlayer.play();
+
     setState({
-      //
       ...state,
       currentTrackName,
       duration,
       isPlaying: true,
       isFavorite,
+      isLoaded: true,
     });
   }
+
   // function playTrack(index) {
   //   if (index === state.currentTrackIndex) {
   //     togglePlay();
@@ -58,24 +66,18 @@ const useMusicPlayer = () => {
   // }
 
   function mute() {
-    if (state.audioPlayer.volume !== -1) {
-      setState({
-        //
-        ...state,
-        premute: state.audioPlayer.volume,
-        volume: -1,
-      });
-      state.audioPlayer.volume = -1;
+    if (state.isMute) {
+      setState({ ...state, isMute: false });
+      state.audioPlayer.volume = state.volume;
     } else {
-      const { premute } = state.premute;
-      state.audioPlayer.volume = premute;
-      setState({ ...state, volume: premute });
+      setState({ ...state, isMute: true });
+      state.audioPlayer.volume = 0;
     }
   }
 
   function changeProgress(event, slider) {
     let progressValue =
-      ((event.clientX - slider.current.getBoundingClientRect().left) / // degeulasse
+      ((event.clientX - slider.current.getBoundingClientRect().left) /
         parseInt(window.getComputedStyle(slider.current).width, 10)) *
       100;
     if (progressValue > 100) {
@@ -87,17 +89,18 @@ const useMusicPlayer = () => {
   }
 
   function formatTime(time) {
-    const minutes = Math.floor(time / 60);
-    const seconds = Math.floor(time % 60);
+    let minutes = Math.floor(time / 60);
+    let seconds = Math.floor(time % 60);
+    if (Number.isNaN(minutes)) minutes = 0;
+    if (Number.isNaN(seconds)) seconds = 0;
     const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
     return `${minutes}:${returnedSeconds}`;
   }
 
-  // function currentTime(time) {
-  //   console.log(time);
-  //   if (!time) return state.audioPlayer.currentTime;
-  //   state.audio.currentTime = time;
-  // }
+  function setVolume(value) {
+    state.audioPlayer.volume = value;
+    state.volume = value;
+  }
 
   return {
     playTrack,
@@ -105,11 +108,14 @@ const useMusicPlayer = () => {
     currentTrackName: state.currentTrackName,
     trackList: state.tracks,
     isPlaying: state.isPlaying,
+    isLoaded: state.isLoaded,
+    isMute: state.isMute,
     // playPreviousTrack,
     // playNextTrack,
     mute,
     changeProgress,
     volume: state.volume,
+    setVolume,
     duration: state.duration,
     // currentTime,
     formatTime,

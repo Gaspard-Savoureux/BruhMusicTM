@@ -29,4 +29,5 @@ ipcMain.on('notify', (_, message) => {
   new Notification({ title: 'Notifiation', body: message }).show();
 });
 
+app.commandLine.appendSwitch('no-sandbox');
 app.whenReady().then(createWindow);

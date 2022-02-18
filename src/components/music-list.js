@@ -47,6 +47,7 @@ const MusicList = ({ music }) => {
             music={item}
             songNum={music.indexOf(item) + 1}
             favorites={favorites}
+            key={item.id}
           />
         ))}
       </div>

@@ -22,6 +22,7 @@
 
 .music-container:hover {
   background: var(--c1);
+  cursor: pointer;
 }
 
 .music-grid {

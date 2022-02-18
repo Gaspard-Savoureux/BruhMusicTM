@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import MenuLinkButton from './menu-link-button';
 import MenuButton from './menu-button';
 import ModalLogin from './modal-login';
@@ -9,7 +8,7 @@ import useToken from '../hooks/useToken';
 import '../styles/menu.css';
 import '../styles/login.css';
 
-const Menu = () => {
+function Menu() {
   const [menuIsSlim, setMenuIsSlim] = useState(true);
   const [loginModal, setLogin] = useState(false);
   const [registerModal, setRegister] = useState(false);
@@ -60,6 +59,17 @@ const Menu = () => {
   function handleChangePassword(event) {
     setPassword(event.target.value);
   }
+
+  // if (res.ok) {
+  //   const data = await res.json();
+  //   context.setToken(data.token);
+  //   console.log(context.token);
+  //   navigate('profile'); // TODO navigation vers page profil ### why? pourquoi pas juste fermer la modale???
+  //   setLogin(false);
+  // } else {
+  //   console.log('NOPE');
+  //   console.error(res.statusText);
+  // }
 
   function handleRegister(e) {
     e.preventDefault();
@@ -118,7 +128,7 @@ const Menu = () => {
           menuIsSlim={menuIsSlim}
         />
         <MenuLinkButton
-          to="/"
+          to="/settings"
           icon="fas fa-cog"
           text="Settings"
           menuIsSlim={menuIsSlim}
@@ -158,6 +168,6 @@ const Menu = () => {
       />
     </div>
   );
-};
+}
 
 export default Menu;
