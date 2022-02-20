@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import FileUpload from './fileupload';
 // https://github.com/KaterinaLupacheva/react-progress-bar merci infiniment à cette personne
 import ProgressBar from '@ramonak/react-progress-bar';
 import { serveur } from '../const';
@@ -33,14 +34,11 @@ export default function Profile() {
     getUserInfo();
   }, []);
 
-  const changeHandler = (event) => {
-    setSelectedFile(event.target.files[0]);
-    setIsSelected(true);
-  };
-
-  const handleSubmission = async () => {
+  const handleSubmission = async (event) => {
+    event.preventDefault();
     const formData = new FormData();
     formData.append('file', selectedFile);
+    console.log(selectedFile);
 
     // const res = await fetch(`${serveur}/music`, {
     //   method: 'POST',
@@ -89,40 +87,20 @@ export default function Profile() {
           alt="album cover"
         />
         <div className="albuminfo-infobox">
-          <div className="albuminfo-title">{user?.username ?? ''}</div>
+          <div className="albuminfo-title">
+            {user?.username ?? ''}
+          </div>
           <div className="albuminfo-artist">
             followers: {user?.followers ?? ''}
           </div>
         </div>
       </div>
       <div>
-        <input type="file" name="file" onChange={changeHandler} />
-        {isSelected ? (
-          <div>
-            <p>Filename: {selectedFile.name}</p>
-            <p>setIsFilePickedFiletype: {selectedFile.type}</p>
-            <p>Size in bytes: {selectedFile.size}</p>
-            <p>
-              lastModifiedDate:{' '}
-              {selectedFile.lastModifiedDate.toLocaleDateString()}
-            </p>
-          </div>
-        ) : (
-          <p>Select a file to show details</p>
-        )}
-        <div>
-          <button type="submit" onClick={handleSubmission}>
-            Submit
-          </button>
-        </div>
-        {progress && (
-          <ProgressBar
-            completed={progress}
-            maxCompleted={100}
-            customLabel={`${progress} %`}
-          />
-        )}{' '}
-      </div>{' '}
+        <form onSubmit={handleSubmission}>
+          <FileUpload setSelectedFile={setSelectedFile} />
+          {/* <input type="submit" value="XD" /> */}
+        </form>
+      </div>
     </div>
   );
 }

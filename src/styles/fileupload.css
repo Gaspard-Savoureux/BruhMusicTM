@@ -1,0 +1,51 @@
+.fileupload-container {
+  height: 40px;
+}
+
+.fileupload-label {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 100%;
+  cursor: pointer;
+}
+
+.fileupload-button {
+  height: 100%;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+  border-right: solid 2px var(--c7);
+  border-radius: 5px 0px 0px 5px;
+  padding: 0px 10px 0px 10px;
+  background-color: var(--c3);
+}
+
+.fileupload-infobox {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  border-radius: 0px 5px 5px 0px;
+  align-items: center;
+  height: 100%;
+  padding: 0px 10px 0px 10px;
+  background-color: var(--c6);
+  color: var(--c0);
+}
+
+.fileupload-filename {
+  display: flex;
+  flex-shrink: 1;
+  min-width: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileupload-filesize {
+  display: flex;
+  flex-shrink: 0;
+}
