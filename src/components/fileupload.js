@@ -2,12 +2,19 @@ import React, { useState } from 'react';
 
 import '../styles/fileupload.css';
 
-const FileUpload = ({ setSelectedFile }) => {
+const FileUpload = ({ setSelectedFile, acceptedFileTypes }) => {
   const [file, setFile] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const changeHandler = (event) => {
-    setFile(event.target.files[0]);
-    setSelectedFile(event.target.files[0]);
+    setErrorMessage('')
+    const file = event.target.files[0];
+    if (!acceptedFileTypes.includes(file.type)) {
+      setErrorMessage('invalid file format');
+      return;
+    }
+    setFile(file);
+    setSelectedFile(file);
   };
 
   const formatFileSize = (fileSize) => {
@@ -41,6 +48,7 @@ const FileUpload = ({ setSelectedFile }) => {
           </div>
         </div>
       </label>
+      <div className="fileupload-error">{errorMessage}</div>
     </div>
   );
 };

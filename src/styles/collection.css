@@ -14,7 +14,7 @@
   grid-auto-rows: 0;
   overflow-y: hidden;
   grid-gap: 0 10px;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  grid-template-columns: repeat(auto-fill, minmax(250px,1fr)); /* change auto-fill to auto-fit if you don't want albums to fill the screen with no space after */
 }
 
 .collection-album {

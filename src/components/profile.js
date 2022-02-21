@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import FileUpload from './fileupload';
 // https://github.com/KaterinaLupacheva/react-progress-bar merci infiniment à cette personne
 import ProgressBar from '@ramonak/react-progress-bar';
@@ -9,6 +10,8 @@ import '../styles/search.css';
 import '../styles/song.css';
 
 export default function Profile() {
+  const { id } = useParams();
+
   const [user, setUser] = useState(null);
   const [selectedFile, setSelectedFile] = useState();
   const [isSelected, setIsSelected] = useState(false);
@@ -18,6 +21,7 @@ export default function Profile() {
 
   useEffect(() => {
     const getUserInfo = async () => {
+      // TODO get user by id
       const res = await fetch(`${serveur}/user`, {
         method: 'GET',
         headers: {
@@ -37,7 +41,7 @@ export default function Profile() {
   const handleSubmission = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('file', selectedFile);
+    formData.append('photo', selectedFile);
     console.log(selectedFile);
 
     // const res = await fetch(`${serveur}/music`, {
@@ -97,7 +101,7 @@ export default function Profile() {
       </div>
       <div>
         <form onSubmit={handleSubmission}>
-          <FileUpload setSelectedFile={setSelectedFile} />
+          <FileUpload setSelectedFile={setSelectedFile} acceptedFileTypes={['image/png']} />
           {/* <input type="submit" value="XD" /> */}
         </form>
       </div>

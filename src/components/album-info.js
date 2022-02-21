@@ -6,7 +6,7 @@ import MusicList from './music-list';
 
 import '../styles/album-info.css';
 
-const AlbumInfo = () => {
+export default function AlbumInfo() {
   const { id } = useParams();
 
   const [album, setAlbum] = useState(null);
@@ -32,8 +32,7 @@ const AlbumInfo = () => {
         <img
           className="albuminfo-image"
           src={album?.cover ?? './bunny.png'}
-          alt="album cover"
-        />
+          alt="album cover" />
         <div className="albuminfo-infobox">
           <div className="albuminfo-title">{album?.title ?? ''}</div>
           <div className="albuminfo-artist">{album?.artist ?? ''}</div>
@@ -42,6 +41,4 @@ const AlbumInfo = () => {
       <MusicList music={album?.songs ?? []} />
     </div>
   );
-};
-
-export default AlbumInfo;
+}
