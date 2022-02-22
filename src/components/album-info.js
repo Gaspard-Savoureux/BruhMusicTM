@@ -32,7 +32,8 @@ export default function AlbumInfo() {
         <img
           className="albuminfo-image"
           src={album?.cover ?? './bunny.png'}
-          alt="album cover" />
+          alt="album cover"
+        />
         <div className="albuminfo-infobox">
           <div className="albuminfo-title">{album?.title ?? ''}</div>
           <div className="albuminfo-artist">{album?.artist ?? ''}</div>

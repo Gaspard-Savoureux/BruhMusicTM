@@ -61,10 +61,11 @@ const ModalLogin = ({
       ariaHideApp={false}
       style={{
         content: {
-          background: 'unset !important',
+          /* background: 'unset !important', */
           margin: 0,
           padding: 0,
           overflow: 'hidden',
+          position: 'static',
         },
       }}
     >
@@ -93,7 +94,7 @@ const ModalLogin = ({
             <label>Password</label>
           </div>
           <div className="pass">Forgot Password?</div>
-          <input type="submit" value="Login" />
+          <input className="login-submit" type="submit" value="Login" />
           <div className="signup_link">
             Not a member? &nbsp;
             <a to="/" onClick={switchMod}>

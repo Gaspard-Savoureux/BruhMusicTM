@@ -1,38 +1,39 @@
 import React, { useState } from 'react';
 
-import '../styles/fileupload.css';
+import '../styles/form-components.css';
 
 const FileUpload = ({ setSelectedFile, acceptedFileTypes }) => {
   const [file, setFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
   const changeHandler = (event) => {
-    setErrorMessage('')
-    const file = event.target.files[0];
-    if (!acceptedFileTypes.includes(file.type)) {
+    setErrorMessage('');
+    const fileSelected = event.target.files[0];
+    if (!acceptedFileTypes.includes(fileSelected.type)) {
       setErrorMessage('invalid file format');
       return;
     }
-    setFile(file);
-    setSelectedFile(file);
+    setFile(fileSelected);
+    setSelectedFile(fileSelected);
   };
 
   const formatFileSize = (fileSize) => {
-    if (fileSize == null) return null;
+    let fs = fileSize;
+    if (fs == null) return null;
     const threshold = 1000;
     let i = -1;
     const units = [' kB', ' MB', ' GB', ' TB', 'PB', 'EB', 'ZB', 'YB'];
     do {
-      fileSize /= threshold;
+      fs /= threshold;
       i += 1;
-    } while (fileSize > threshold);
-    return Math.max(fileSize, 0.1).toFixed(1) + units[i];
+    } while (fs > threshold);
+    return Math.max(fs, 0.1).toFixed(1) + units[i];
   };
 
   return (
     <div className="fileupload-container">
-      <label className="fileupload-label">
-        <input className="fileupload-selectfile" type="file" name="file" onChange={changeHandler} hidden />
+      <label className="fileupload-label" htmlFor="fileupload">
+        <input className="fileupload-selectfile" id="fileupload" type="file" name="file" onChange={changeHandler} hidden />
         <div className="fileupload-button">
           <i className="fas fa-upload" />
           <div className="fileupload-button-text">

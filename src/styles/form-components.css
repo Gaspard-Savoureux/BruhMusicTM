@@ -1,3 +1,35 @@
+/*
+  SEARCH
+*/
+
+.search-bar-container {
+  display: flex;
+  height: 40px;
+}
+
+.search-bar {
+  padding: 0px 10px 0px 10px;
+  border-radius: 5px 0px 0px 5px;
+  border-style: none;
+  font-size: 1.0em;
+  border: solid 1px var(--color-grey);
+  border-right: solid 1px var(--color-black);
+}
+
+.search-button {
+  display: flex;
+  border-radius: 0px 5px 5px 0px;
+  background-color: var(--color-primary);
+  cursor: pointer;
+  padding: 0px 10px 0px 10px;
+  font-size: 1.6rem;
+  align-items: center;
+}
+
+/*
+  FILE UPLOAD
+*/
+
 .fileupload-container {
   display: inline-block;
   height: 40px;
@@ -19,10 +51,9 @@
   flex-direction: row;
   gap: 8px;
   align-items: center;
-  border-right: solid 2px var(--c7);
   border-radius: 5px 0px 0px 5px;
   padding: 0px 10px 0px 10px;
-  background-color: var(--c3);
+  background-color: var(--color-primary);
 }
 
 .fileupload-infobox {
@@ -33,8 +64,10 @@
   align-items: center;
   height: 100%;
   padding: 0px 10px 0px 10px;
-  background-color: var(--c6);
-  color: var(--c0);
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border: solid 1px var(--color-grey);
+  border-left: solid 1px var(--color-black);
 }
 
 .fileupload-filename {
@@ -52,5 +85,6 @@
 }
 
 .fileupload-error {
-  color: red;
+  color: var(--color-text-error);
 }
+

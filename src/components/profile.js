@@ -5,8 +5,8 @@ import FileUpload from './fileupload';
 import ProgressBar from '@ramonak/react-progress-bar';
 import { serveur } from '../const';
 import useToken from '../hooks/useToken';
-import '../styles/home.css';
-import '../styles/search.css';
+import '../styles/container.css';
+import '../styles/form-components.css';
 import '../styles/song.css';
 
 export default function Profile() {
@@ -38,6 +38,7 @@ export default function Profile() {
     getUserInfo();
   }, []);
 
+  // FIXME it dont work
   const handleSubmission = async (event) => {
     event.preventDefault();
     const formData = new FormData();

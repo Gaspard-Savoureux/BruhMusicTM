@@ -19,10 +19,12 @@ const ModalRegister = ({
       ariaHideApp={false}
       style={{
         content: {
-          background: "linear-gradient(120deg,#2980b9, #8e44ad)",
+          // le background me derangeais un peu, vous pouvez le remettre si vous le voulez vraiment
+          /* background: "linear-gradient(120deg,#2980b9, #8e44ad)", */
           margin: 0,
           padding: 0,
-          overflow: "hidden",
+          overflow: 'hidden',
+          position: 'static',
         },
       }}
     >
@@ -49,7 +51,7 @@ const ModalRegister = ({
             <span></span>
             <label>Password</label>
           </div>
-          <input type="submit" value="Register" />
+          <input className="login-submit" type="submit" value="Register" />
           <div className="signup_link">
             Already a member?{" "}
             <a href="#" onClick={switchMod}>

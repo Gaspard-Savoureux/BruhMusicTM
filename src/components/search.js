@@ -1,51 +1,15 @@
 import React, { useState } from 'react';
 
 import MusicList from './music-list';
-import Collection from './collection';
 
-import '../styles/home.css';
-import '../styles/search.css';
+import '../styles/container.css';
+import '../styles/form-components.css';
 
 import { serveur } from '../const';
 
 export default function Search() {
   const [filteredMusic, setFilteredMusic] = useState([]);
   const [searchFilter, setSearchFilter] = useState('');
-  const exampleSongs = [
-    {
-      id: 1,
-      title: 'little_dark_age',
-      file_name: '|-1-|--little_dark_age.flac',
-      duration: 326.751,
-      plays: 0,
-      uploaded: '2022-02-10T20:49:43.000Z',
-      image: null,
-      user_id: 1,
-      album_id: null,
-    },
-    {
-      id: 3,
-      title: 'alt-J (∆) - Fitzpleasure (Official Music Video)',
-      file_name: '|-1-|--alt-J (∆) - Fitzpleasure (Official Music Video).flac',
-      duration: 221.344,
-      plays: 0,
-      uploaded: '2022-02-10T22:12:47.000Z',
-      image: null,
-      user_id: 1,
-      album_id: null,
-    },
-    {
-      id: 4,
-      title: 'alt-J (∆) - Fitzpleasure (Official Music Video)',
-      file_name: '|-1-|--alt-J (∆) - Fitzpleasure (Official Music Video).flac',
-      duration: 221.344,
-      plays: 0,
-      uploaded: '2022-02-10T22:12:47.000Z',
-      image: null,
-      user_id: 1,
-      album_id: null,
-    },
-  ];
 
   function handleSearchChange(event) {
     setSearchFilter(event.target.value);
@@ -68,8 +32,8 @@ export default function Search() {
   }
 
   return (
-    <div className="home-container">
-      <Collection title="Search" />
+    <div className="main-view-container">
+      <div className="section-title">Search</div>
       <form className="search-bar-container" onSubmit={onSubmitSearch}>
         <input
           className="search-bar"
