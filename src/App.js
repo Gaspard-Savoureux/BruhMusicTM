@@ -26,6 +26,7 @@ export default function App() {
                   <Route path="/" element={<Home />} />
                   <Route path="/search" element={<Search />} />
                   <Route path="/profile/:id" element={<Profile />} />
+                  <Route path="/profile" element={<Profile />} />
                   <Route path="/favorite" element={<Favorite />} />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/album/:id" element={<AlbumInfo />} />

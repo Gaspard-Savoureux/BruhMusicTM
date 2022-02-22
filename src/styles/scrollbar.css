@@ -1,9 +1,10 @@
-/* ::-webkit-scrollbar { */
+::-webkit-scrollbar {
+  display: none;
 /*   width: 10px; */
 
 /*   padding-bottom: 200px; */
 /*   margin-bottom: 200px; */
-/* } */
+}
 
 /* ::-webkit-scrollbar-track { */
 /*   background: var(--c0); */

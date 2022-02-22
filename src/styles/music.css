@@ -21,7 +21,7 @@
 }
 
 .music-container:hover {
-  background: var(--c1);
+  background: var(--color-background-secondary);
   cursor: pointer;
 }
 
@@ -35,7 +35,7 @@
 
 .music-num {
   justify-self: center;
-  color: var(--c4);
+  color: var(--color-text-secondary);
 }
 
 .music-title {
@@ -46,7 +46,7 @@
 
 .music-artist {
   font-size: 0.8em;
-  color: var(--c4);
+  color: var(--color-text-secondary);
 }
 
 .music-box-end {
@@ -59,9 +59,9 @@
 
 .music-duration {
   justify-self: end;
-  color: var(--c4);
+  color: var(--color-text-secondary);
 }
 .music-favorite {
   justify-self: start;
-  color: var(--c4);
+  color: var(--color-text-secondary);
 }

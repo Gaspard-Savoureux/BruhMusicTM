@@ -1,15 +1,46 @@
+/* DARK THEME */
 :root {
-  --c0: #180a1a;
-  --c1: #220E24;
-  --c2: #342056;
-  --c3: #5454C5;
-  --c4: #bf395b;
-  --c5: #639CD9;
-  --c6: #ffffff;
-  --c7: #000000;
-  --c8: #000000;
-  --c9: #000000;
+  /* COLORS */
+  --color-black: #000000;
+  --color-grey: #d9d9d9;
+  --color-white: #ffffff;
+
+  /* BACKGROUND COLORS */
+  --color-background-primary: #220E24; /* ancienne couleur 180a1a */
+  --color-background-secondary: #2c122f; /* ancienne couleur 220E24 avait 0 contrast */
+  --color-background-accent: #42286c; /* ancienne couleur 342056 */
+
+  /* MAIN COLORS */
+  --color-primary: #5454C5;
+  --color-secondary: #bf395b;
+
+  /* TEXT COLORS */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #bf395b;
+  --color-text-error: #ff0000;
 }
+
+/* LIGHT THEME (lmao) */
+/* :root { */
+/*   /\* COLORS *\/ */
+/*   --color-black: #000000; */
+/*   --color-grey: #d9d9d9; */
+/*   --color-white: #ffffff; */
+
+/*   /\* BACKGROUND COLORS *\/ */
+/*   --color-background-primary: #e7f5e5; */
+/*   --color-background-secondary: #cbdfa9; */
+/*   --color-background-accent: #bcd298; */
+
+/*   /\* MAIN COLORS *\/ */
+/*   --color-primary: #ccb852; */
+/*   --color-secondary: #cc7352; */
+
+/*   /\* TEXT COLORS *\/ */
+/*   --color-text-primary: #000000; */
+/*   --color-text-secondary: #cc7352; */
+/*   --color-text-error: #ff0000; */
+/* } */
 
 * {
   margin: 0;
@@ -28,8 +59,8 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: var(--c0);
-  color: var(--c6);
+  background-color: var(--color-background-primary);
+  color: var(--color-text-primary);
 }
 
 code {
@@ -60,4 +91,9 @@ textarea:focus, input:focus, button:focus, div:focus, a:focus {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.section-title {
+  font-weight: bold;
+  font-size: 2em;
 }

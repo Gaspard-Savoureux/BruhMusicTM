@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MusicList from './music-list';
 
-import '../styles/home.css';
-import '../styles/search.css';
+import '../styles/container.css';
+import '../styles/form-components.css';
 
 import { serveur } from '../const';
 import useToken from '../hooks/useToken';
@@ -38,7 +38,7 @@ export default function Favorite() {
   }, []);
 
   return (
-    <div className="home-container">
+    <div className="main-view-container">
       <MusicList music={music} />
     </div>
   );
