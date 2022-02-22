@@ -10,10 +10,18 @@ const useToken = () => {
 
   function changeToken(token) {
     setState({ ...state, token });
+    // localStorage.setItem('Token', token);
   }
+
+  function clearToken() {
+    setState({ ...state, token: '' });
+    // localStorage.removeItem('Token');
+  }
+
   return {
     getToken,
     changeToken,
+    clearToken,
   };
 };
 

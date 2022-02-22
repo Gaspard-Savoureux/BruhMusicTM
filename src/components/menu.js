@@ -122,6 +122,7 @@ function Menu() {
         {getToken() ? (
           <MenuLinkButton
             to="/profile"
+            params={{ id: getToken() }}
             icon="fas fa-brain"
             text="Profile"
             menuIsSlim={menuIsSlim}

@@ -1,7 +1,23 @@
-const { BrowserWindow, app, ipcMain, Notification } = require('electron');
+const {
+  //
+  BrowserWindow,
+  app,
+  ipcMain,
+  Notification,
+} = require('electron');
 const path = require('path');
-
+const Store = require('electron-store');
 const isDev = !app.isPackaged;
+
+const store = new Store();
+
+// IPC listener
+ipcMain.on('electron-store-get', async (e, val) => {
+  e.returnValue = store.get(val);
+});
+ipcMain.on('electron-store-set', async (event, key, val) => {
+  store.set(key, val);
+});
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -29,5 +45,5 @@ ipcMain.on('notify', (_, message) => {
   new Notification({ title: 'Notifiation', body: message }).show();
 });
 
-app.commandLine.appendSwitch('no-sandbox');
+// app.commandLine.appendSwitch('no-sandbox');
 app.whenReady().then(createWindow);

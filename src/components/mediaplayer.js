@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import '../styles/mediaplayer.css';
 
 import useMusicPlayer from '../hooks/useMusicPlayer';
+import { serveur } from '../const';
 
 const Mediaplayer = () => {
   const {
@@ -17,16 +18,12 @@ const Mediaplayer = () => {
     formatTime,
     audio,
     isFavorite,
+    image,
   } = useMusicPlayer();
 
   const [timelineIsClicked, setTimelineIsClicked] = useState(false);
-  // const [audio, setAudio] = useState(new Audio('./sample.mp3'));
-  // const [musicIsPlaying, setMusicIsPlaying] = useState(false);
-  // const [musicIsFavorite, setMusicIsFavorite] = useState(false);
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('0:00');
-  // const [volume, setVolume] = useState(1);
-  // const [volumePreMute, setVolumePreMute] = useState(1);
   const timeline = useRef();
   const timelineProgressBar = useRef();
   const volumeSlider = useRef();
@@ -43,27 +40,6 @@ const Mediaplayer = () => {
       }
     };
   }, [audio.currentTime, audio, timelineIsClicked]);
-
-  // useEffect(() => {
-  //   audio.onended = () => {
-  //     setMusicIsPlaying(false);
-  //     // load next track if there is none setMusicIsPlaying to false
-  //   };
-  //   audio.onloadedmetadata = () => {
-  //     setCurrentTime(formatTime(audio.currentTime));
-  //     setDuration(formatTime(audio.duration));
-  //   };
-  // }, [audio]);
-
-  // const backButtonHandler = () => {
-  //   if (audio.currentTime > 3) {
-  //     audio.currentTime = 0;
-  //   }
-  // };
-
-  // const forwardButtonHandler = () => {
-  // go to next song, if there is none stop current song
-  //};
 
   // TODO factoriser les fonctions "mouseDown"
   const mouseDownTimeline = (event) => {
@@ -107,22 +83,15 @@ const Mediaplayer = () => {
     };
   };
 
-  // const mute = () => {
-  //   if (volume !== -1) {
-  //     audio.volume = 0;
-  //     setVolumePreMute(volume);
-  //     setVolume(-1);
-  //   } else {
-  //     audio.volume = volumePreMute;
-  //     setVolume(volumePreMute);
-  //   }
-  // };
-
   return (
     <div className="media-player">
       <div className="media-player-container">
         <div className="media-player-items-left">
-          <img className="album-cover-icon" src="bunny.png" alt="album cover" />
+          <img
+            className="album-cover-icon"
+            src={image ? `${serveur}/uploads/${image}` : 'bunny.png'}
+            alt="album cover"
+          />
           <div className="song-info-box">
             <div className="song-title">{currentTrackName}</div>
             <div className="artist-name">
@@ -181,7 +150,9 @@ const Mediaplayer = () => {
         <div className="media-player-items-right">
           <div className="media-player-button" onClick={mute}>
             {volume >= 0.3 && !isMute && <i className="fas fa-volume-up" />}
-            {volume < 0.3 && volume > 0 && !isMute && <i className="fas fa-volume-down" />}
+            {volume < 0.3 && volume > 0 && !isMute && (
+              <i className="fas fa-volume-down" />
+            )}
             {volume === 0 && !isMute && <i className="fas fa-volume-off" />}
             {isMute && <i className="fas fa-volume-mute" />}
           </div>
