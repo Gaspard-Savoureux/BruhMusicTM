@@ -16,6 +16,7 @@ const MusicPlayerProvider = (props) => {
     duration: '--',
     isFavorite: false,
     image: null,
+    idTrack: null,
   });
 
   return (

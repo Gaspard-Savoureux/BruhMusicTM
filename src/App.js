@@ -17,9 +17,9 @@ export default function App() {
   return (
     <div className="App">
       <MusicPlayerProvider>
-        <div className="main-container">
-          <div className="content">
-            <TokenContextProvider>
+        <TokenContextProvider>
+          <div className="main-container">
+            <div className="content">
               <HashRouter>
                 <Menu />
                 <Routes>
@@ -32,10 +32,10 @@ export default function App() {
                   <Route path="/album/:id" element={<AlbumInfo />} />
                 </Routes>
               </HashRouter>
-            </TokenContextProvider>
+            </div>
           </div>
-        </div>
-        <Mediaplayer />
+          <Mediaplayer />
+        </TokenContextProvider>
       </MusicPlayerProvider>
     </div>
   );

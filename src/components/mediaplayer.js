@@ -3,9 +3,11 @@ import '../styles/mediaplayer.css';
 
 import useMusicPlayer from '../hooks/useMusicPlayer';
 import { serveur } from '../const';
+import useToken from '../hooks/useToken';
 
 const Mediaplayer = () => {
   const {
+    trackId,
     currentTrackName,
     togglePlay,
     isPlaying,
@@ -19,6 +21,7 @@ const Mediaplayer = () => {
     audio,
     isFavorite,
     image,
+    toggleFavorite,
   } = useMusicPlayer();
 
   const [timelineIsClicked, setTimelineIsClicked] = useState(false);
@@ -28,6 +31,8 @@ const Mediaplayer = () => {
   const timelineProgressBar = useRef();
   const volumeSlider = useRef();
   const volumeSliderProgressBar = useRef();
+
+  const { getToken } = useToken();
 
   useEffect(() => {
     audio.ontimeupdate = () => {
@@ -83,6 +88,17 @@ const Mediaplayer = () => {
     };
   };
 
+  async function addOrRemoveFav() {
+    const url = `${serveur}/favorite?musicId=${trackId}`;
+    await fetch(url, {
+      method: isFavorite ? 'DELETE' : 'POST',
+      headers: {
+        authorization: `Bearer ${getToken()}`,
+      },
+    });
+    toggleFavorite();
+  }
+
   return (
     <div className="media-player">
       <div className="media-player-container">
@@ -121,7 +137,7 @@ const Mediaplayer = () => {
             >
               <i className="fas fa-step-forward" />
             </div>
-            <div className="media-player-button">
+            <div className="media-player-button" onClick={addOrRemoveFav}>
               {isFavorite ? (
                 <i className="fas fa-heart" />
               ) : (
