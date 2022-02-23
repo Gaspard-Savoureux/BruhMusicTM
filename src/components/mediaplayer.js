@@ -99,6 +99,12 @@ const Mediaplayer = () => {
     toggleFavorite();
   }
 
+  const BoutonFav = () => {
+    if (!getToken()) return '';
+    if (isFavorite) return <i className="fas fa-heart" />;
+    return <i className="far fa-heart" />;
+  };
+
   return (
     <div className="media-player">
       <div className="media-player-container">
@@ -138,11 +144,7 @@ const Mediaplayer = () => {
               <i className="fas fa-step-forward" />
             </div>
             <div className="media-player-button" onClick={addOrRemoveFav}>
-              {isFavorite ? (
-                <i className="fas fa-heart" />
-              ) : (
-                <i className="far fa-heart" />
-              )}
+              <BoutonFav />
             </div>
           </div>
           <div className="media-player-timeline-container">

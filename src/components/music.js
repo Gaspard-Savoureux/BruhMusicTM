@@ -39,6 +39,7 @@ export default function Music({ music, songNum, favorites }) {
     if (thisIsFavorite) return <i className="fas fa-heart" />;
     return <i className="far fa-heart" />;
   };
+
   return (
     <div className="music-container">
       <div
