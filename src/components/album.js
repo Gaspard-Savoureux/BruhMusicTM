@@ -1,27 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AlbumCard from './album-card';
 
+import { serveur } from '../const';
 import '../styles/container.css';
 
 const Album = () => {
-  const albumsTest = [
-    {
-      title: 'album XD',
-      artist: 'artist',
-      cover: './sample.mp3',
-      cover: 'bunny.png',
-      id: 1,
-    },
-  ];
+  const [albums, setAlbums] = useState([]);
+
+  // TODO CODE INCOMPLET JE PUSH EN SPEED RUN
+  useEffect(() => {
+    const getAlbums = async () => {
+      const res = await fetch(`${serveur}/album`, {
+        method: 'GET',
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setAlbums(data);
+        console.log(data);
+      }
+    };
+    getAlbums();
+  }, []);
 
   return (
     <div className="main-view-container">
       {/* <Collection title="new" albums={albumsTest} /> */}
       {/* <Collection title="popular" albums={albumsTest} /> */}
       <div className="grid-collection-container">
-        {albumsTest?.map((item) => (
-          <AlbumCard data={item} key={item.id} />
+        {albums?.map((album) => (
+          <AlbumCard album={album} key={album.id} />
         ))}
       </div>
     </div>
