@@ -89,6 +89,13 @@ function Menu() {
           text="Playlists"
           menuIsSlim={menuIsSlim}
         />
+        <MenuLinkButton
+          to="/album"
+          icon="fas fa-users"
+          text="albums"
+          menuIsSlim={menuIsSlim}
+        />
+
         {getToken() && (
           <MenuLinkButton
             to="/favorite"

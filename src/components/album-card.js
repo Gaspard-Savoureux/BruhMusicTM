@@ -6,13 +6,13 @@ import '../styles/collection.css';
 const AlbumCard = (props) => {
   return (
     <Link to={`/album/${props.data.id}`} className="album-card">
-      <img className="album-card-cover" src={props.data.cover} alt={props.data.title} />
-      <div className="album-card-title">
-        {props.data.title}
-      </div>
-      <div className="album-card-artist">
-        {props.data.artist}
-      </div>
+      <img
+        className="album-card-cover"
+        src={props.data.cover}
+        alt={props.data.title}
+      />
+      <div className="album-card-title">{props.data.title}</div>
+      <div className="album-card-artist">{props.data.artist}</div>
     </Link>
   );
 };

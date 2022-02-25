@@ -19,6 +19,49 @@ export default function Profile() {
   const [progress, setProgress] = useState();
   const { getToken } = useToken();
 
+  // FIXME it dont work
+  const handleSubmission = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+
+    const res = await fetch(`${serveur}/user/profileImage`, {
+      method: 'PUT',
+      body: formData,
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+
+    if (res.ok) {
+      console.log(res);
+    } else {
+      console.error(res.statusText);
+    }
+    //   const req = new XMLHttpRequest();
+    //   req.open('PUT', `${serveur}/user/profileImage`);
+    //   req.setRequestHeader('Authorization', `Bearer ${getToken()}`);
+
+    //   // upload progress event
+    //   req.upload.addEventListener('progress', (e) => {
+    //     // upload progress as percentage
+    //     setProgress(((e.loaded / e.total) * 100).toFixed());
+    //   });
+
+    //   // request finished event
+    //   req.addEventListener('load', () => {
+    //     // HTTP status message (200, 404 etc)
+    //     console.log(req.status);
+
+    //     // request.response holds response from the server
+    //     console.log(req.response);
+    //   });
+
+    //   // send POST request to server
+    //   req.send(formData);
+    //   console.log(req);
+  };
+
   useEffect(() => {
     const getUserInfo = async () => {
       // TODO get user by id
@@ -31,70 +74,23 @@ export default function Profile() {
 
       if (res.ok) {
         const data = await res.json();
-        setUser(data);
+        setUser({ ...data, image: `${serveur}/uploads/${data.image}` });
         console.log(data);
       }
     };
     getUserInfo();
   }, []);
 
-  // FIXME it dont work
-  const handleSubmission = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append('photo', selectedFile);
-    console.log(selectedFile);
-
-    // const res = await fetch(`${serveur}/music`, {
-    //   method: 'POST',
-    //   body: formData,
-    //   headers: {
-    //     Authorization: `Bearer ${getToken()}`,
-    //   },
-    // });
-
-    // if (res.ok) {
-    //   console.log(res);
-    //   setIsSuccessfull(true);
-    // } else {
-    //   console.error(res.statusText);
-    //   setIsSuccessfull(false);
-    // }
-    const req = new XMLHttpRequest();
-    req.open('POST', `${serveur}/music`);
-    req.setRequestHeader('Authorization', `Bearer ${getToken()}`);
-
-    // upload progress event
-    req.upload.addEventListener('progress', (e) => {
-      // upload progress as percentage
-      setProgress(((e.loaded / e.total) * 100).toFixed());
-    });
-
-    // request finished event
-    req.addEventListener('load', () => {
-      // HTTP status message (200, 404 etc)
-      console.log(req.status);
-
-      // request.response holds response from the server
-      console.log(req.response);
-    });
-
-    // send POST request to server
-    req.send(formData);
-  };
-
   return (
     <div className="albuminfo-container">
       <div className="albuminfo-header">
         <img
           className="albuminfo-image"
-          src={user?.pic ?? './bunny.png'}
+          src={user?.image ?? './bunny.png'}
           alt="album cover"
         />
         <div className="albuminfo-infobox">
-          <div className="albuminfo-title">
-            {user?.username ?? ''}
-          </div>
+          <div className="albuminfo-title">{user?.username ?? ''}</div>
           <div className="albuminfo-artist">
             followers: {user?.followers ?? ''}
           </div>
@@ -102,8 +98,17 @@ export default function Profile() {
       </div>
       <div>
         <form onSubmit={handleSubmission}>
-          <FileUpload setSelectedFile={setSelectedFile} acceptedFileTypes={['image/png']} />
-          {/* <input type="submit" value="XD" /> */}
+          <FileUpload
+            setSelectedFile={setSelectedFile}
+            acceptedFileTypes={[
+              'image/png',
+              'image/jpeg',
+              'image/jpg',
+              'image/gif',
+            ]}
+          />
+          <br />
+          <input type="submit" value="XD" />
         </form>
       </div>
     </div>
