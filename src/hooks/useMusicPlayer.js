@@ -46,6 +46,7 @@ const useMusicPlayer = () => {
     });
   }
 
+  // TODO système de track list à implémenté
   // function playTrack(index) {
   //   if (index === state.currentTrackIndex) {
   //     togglePlay();
@@ -97,6 +98,7 @@ const useMusicPlayer = () => {
     return progressValue;
   }
 
+  // format le temps recu en minutes:secondes tels que 00:00
   function formatTime(time) {
     let minutes = Math.floor(time / 60);
     let seconds = Math.floor(time % 60);

@@ -12,6 +12,8 @@ import AlbumInfo from './components/album-info';
 import Create from './components/create';
 import Album from './components/album';
 
+// Contexte permettant d'utiliser le token et
+// les fonctions du mediaplayer au travers de l'applicaition.
 import { MusicPlayerProvider } from './MusicPlayerContext';
 import { TokenContextProvider } from './TokenContext';
 
