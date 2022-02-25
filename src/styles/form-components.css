@@ -103,10 +103,13 @@
   padding: 0px 10px 0px 10px;
   margin: 0;
   border: solid 1px var(--color-grey);
+  cursor: pointer;
 }
 
 .create-form {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   gap: 0.8rem;
 }
+
+.image-form {}

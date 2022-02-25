@@ -7,7 +7,8 @@ import useToken from '../hooks/useToken';
 
 export default function CreateAlbums() {
   const [userSongList, setUserSongList] = useState(null);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [songFile, setSongFile] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
 
   const { getToken } = useToken();
 
@@ -32,15 +33,19 @@ export default function CreateAlbums() {
   const uploadSong = async (event) => {
     event.preventDefault();
     const token = getToken();
-    // TODO make this request work
-    const res = await fetch(`${serveur}/upload/song`, {
+    const formData = new FormData();
+    formData.append('music', songFile);
+    formData.append('image', imageFile);
+    const res = await fetch(`${serveur}/music`, {
+      method: 'POST',
+      body: formData,
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     if (res.ok) {
       const data = await res.json();
-      setUserSongList(data);
+      console.log(data);
     } else {
       console.log(res);
     }
@@ -53,7 +58,26 @@ export default function CreateAlbums() {
       </div>
       <form onSubmit={uploadSong}>
         <div className="create-form">
-          <FileUpload setSelectedFile={setSelectedFile} acceptedFileTypes={['image/png']} />
+          <div className="create-form-label">song audio file</div>
+          <FileUpload
+            setSelectedFile={setSongFile}
+            id="audio"
+            acceptedFileTypes={[
+              'audio/flac',
+              'audio/wav',
+            ]}
+          />
+          <div className="create-form-label">song cover image</div>
+          <FileUpload
+            setSelectedFile={setImageFile}
+            id="image"
+            acceptedFileTypes={[
+              'image/png',
+              'image/jpeg',
+              'image/jpg',
+              'image/gif',
+            ]}
+          />
           <div className="button-container">
             <button className="submit-button" type="submit">Submit</button>
           </div>
