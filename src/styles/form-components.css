@@ -88,3 +88,25 @@
   color: var(--color-text-error);
 }
 
+/*
+  SUBMIT BUTTON
+*/
+
+.button-container {
+  display: flex;
+}
+
+.submit-button {
+  display: inline-block;
+  height: 40px;
+  border-radius: 5px;
+  padding: 0px 10px 0px 10px;
+  margin: 0;
+  border: solid 1px var(--color-grey);
+}
+
+.create-form {
+  display: flex;
+  flex-direction: row;
+  gap: 0.8rem;
+}

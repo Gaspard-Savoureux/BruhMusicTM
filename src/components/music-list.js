@@ -42,14 +42,14 @@ const MusicList = ({ music }) => {
         <div className="ml-header-duration">Duration</div>
       </div>
       <div className="ml-list">
-        {music.map((item) => (
+        {music?.map((item) => (
           <Music
             music={item}
             songNum={music.indexOf(item) + 1}
             favorites={favorites}
             key={item.id}
           />
-        ))}
+        )) ?? ''}
       </div>
     </div>
   );

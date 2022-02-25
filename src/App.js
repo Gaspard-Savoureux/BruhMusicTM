@@ -9,6 +9,7 @@ import Profile from './components/profile';
 import Favorite from './components/favorite';
 import Settings from './components/settings';
 import AlbumInfo from './components/album-info';
+import Create from './components/create';
 
 import { MusicPlayerProvider } from './MusicPlayerContext';
 import { TokenContextProvider } from './TokenContext';
@@ -30,6 +31,7 @@ export default function App() {
                   <Route path="/favorite" element={<Favorite />} />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/album/:id" element={<AlbumInfo />} />
+                  <Route path="/create" element={<Create />} />
                 </Routes>
               </HashRouter>
             </TokenContextProvider>

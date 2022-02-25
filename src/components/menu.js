@@ -97,6 +97,14 @@ function Menu() {
             menuIsSlim={menuIsSlim}
           />
         )}
+        {getToken() && (
+          <MenuLinkButton
+            to="/create"
+            icon="fas fa-plus"
+            text="new labum"
+            menuIsSlim={menuIsSlim}
+          />
+        )}
       </div>
       <div className="menu-meme">
         {!menuIsSlim && (
@@ -108,7 +116,7 @@ function Menu() {
           <MenuButton
             onClick={() => changeToken('')}
             icon="fas fa-sign-out-alt"
-            text="Login"
+            text="Logout"
             menuIsSlim={menuIsSlim}
           />
         ) : (
@@ -122,7 +130,7 @@ function Menu() {
         {getToken() ? (
           <MenuLinkButton
             to="/profile"
-            icon="fas fa-brain"
+            icon="fas fa-user"
             text="Profile"
             menuIsSlim={menuIsSlim}
           />
