@@ -13,7 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "@ramonak/react-progress-bar": "^4.4.0",
-    "electron": "^10.4.7",
+    "electron": "^17.0.1",
+    "electron-store": "^8.0.1",
     "prop-types": "^15.8.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -4,6 +4,8 @@ const TokenContext = React.createContext();
 
 const TokenContextProvider = (props) => {
   const [token, setToken] = useState('');
+  // const storedToken = localStorage.getItem('Token');
+
   const objetEtMethodesDuContexte = [token, setToken];
   return (
     <TokenContext.Provider value={objetEtMethodesDuContexte}>

@@ -10,6 +10,7 @@ import Favorite from './components/favorite';
 import Settings from './components/settings';
 import AlbumInfo from './components/album-info';
 import Create from './components/create';
+import Album from './components/album';
 
 import { MusicPlayerProvider } from './MusicPlayerContext';
 import { TokenContextProvider } from './TokenContext';
@@ -18,9 +19,9 @@ export default function App() {
   return (
     <div className="App">
       <MusicPlayerProvider>
-        <div className="main-container">
-          <div className="content">
-            <TokenContextProvider>
+        <TokenContextProvider>
+          <div className="main-container">
+            <div className="content">
               <HashRouter>
                 <Menu />
                 <Routes>
@@ -30,14 +31,15 @@ export default function App() {
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/favorite" element={<Favorite />} />
                   <Route path="/settings" element={<Settings />} />
+                  <Route path="/album" element={<Album />} />
                   <Route path="/album/:id" element={<AlbumInfo />} />
                   <Route path="/create" element={<Create />} />
                 </Routes>
               </HashRouter>
-            </TokenContextProvider>
+            </div>
           </div>
-        </div>
-        <Mediaplayer />
+          <Mediaplayer />
+        </TokenContextProvider>
       </MusicPlayerProvider>
     </div>
   );

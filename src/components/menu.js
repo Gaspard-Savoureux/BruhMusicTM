@@ -89,6 +89,13 @@ function Menu() {
           text="Playlists"
           menuIsSlim={menuIsSlim}
         />
+        <MenuLinkButton
+          to="/album"
+          icon="fas fa-users"
+          text="albums"
+          menuIsSlim={menuIsSlim}
+        />
+
         {getToken() && (
           <MenuLinkButton
             to="/favorite"
@@ -130,6 +137,7 @@ function Menu() {
         {getToken() ? (
           <MenuLinkButton
             to="/profile"
+            params={{ id: getToken() }}
             icon="fas fa-user"
             text="Profile"
             menuIsSlim={menuIsSlim}

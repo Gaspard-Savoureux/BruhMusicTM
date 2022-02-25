@@ -14,7 +14,14 @@ const useMusicPlayer = () => {
     setState({ ...state, isPlaying: !state.isPlaying });
   }
 
-  function playTrack(track, duration, currentTrackName, isFavorite) {
+  function playTrack(
+    trackId,
+    track,
+    duration,
+    currentTrackName,
+    isFavorite,
+    image,
+  ) {
     // if (track === state.currentTrackName) togglePlay();
 
     // state.audioPlayer.pause();
@@ -29,11 +36,13 @@ const useMusicPlayer = () => {
 
     setState({
       ...state,
+      trackId,
       currentTrackName,
       duration,
       isPlaying: true,
       isFavorite,
       isLoaded: true,
+      image: image ?? state.image,
     });
   }
 
@@ -102,9 +111,14 @@ const useMusicPlayer = () => {
     state.volume = value;
   }
 
+  function toggleFavorite() {
+    setState({ ...state, isFavorite: !state.isFavorite });
+  }
+
   return {
     playTrack,
     togglePlay,
+    trackId: state.trackId,
     currentTrackName: state.currentTrackName,
     trackList: state.tracks,
     isPlaying: state.isPlaying,
@@ -121,6 +135,8 @@ const useMusicPlayer = () => {
     formatTime,
     audio: state.audioPlayer,
     isFavorite: state.isFavorite,
+    image: state.image,
+    toggleFavorite,
   };
 };
 
