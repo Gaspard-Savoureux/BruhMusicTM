@@ -8,7 +8,6 @@ import '../styles/container.css';
 const Album = () => {
   const [albums, setAlbums] = useState([]);
 
-  // TODO CODE INCOMPLET JE PUSH EN SPEED RUN
   useEffect(() => {
     const getAlbums = async () => {
       const res = await fetch(`${serveur}/album`, {
