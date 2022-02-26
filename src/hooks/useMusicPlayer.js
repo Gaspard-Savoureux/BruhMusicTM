@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { MusicPlayerContext } from '../MusicPlayerContext';
+import { serveur } from '../const';
 
 const useMusicPlayer = () => {
   const [state, setState] = useContext(MusicPlayerContext);
@@ -21,10 +22,8 @@ const useMusicPlayer = () => {
     currentTrackName,
     isFavorite,
     image,
+    currentTrackIndex,
   ) {
-    // if (track === state.currentTrackName) togglePlay();
-
-    // state.audioPlayer.pause();
     state.audioPlayer.setAttribute('src', track);
     state.audioPlayer.load();
     if (state.isMute) {
@@ -33,7 +32,7 @@ const useMusicPlayer = () => {
       state.audioPlayer.volume = state.volume;
     }
     state.audioPlayer.play();
-
+    state.audioPlayer.addEventListener('ended', playNextTrack);
     setState({
       ...state,
       trackId,
@@ -43,36 +42,46 @@ const useMusicPlayer = () => {
       isFavorite,
       isLoaded: true,
       image: image ?? state.image,
+      currentTrackIndex,
     });
   }
 
-  // function playTrack(index) {
-  //   if (index === state.currentTrackIndex) {
-  //     togglePlay();
-  //   } else {
-  //     state.audioPlayer.pause();
-  //     state.audioPlayer = new Audio(state.tracks[index].file);
-  //     state.audioPlayer.play();
-  //     setState((state) => ({
-  //       ...state,
-  //       currentTrackIndex: index,
-  //       isPlaying: true,
-  //     }));
-  //   }
-  // }
+  function setTracks(tracks) {
+    setState({ ...state, tracks });
+  }
 
-  // function playPreviousTrack() {
-  //   const newIndex =
-  //     (((state.currentTrackIndex + -1) % state.tracks.length) +
-  //       state.tracks.length) %
-  //     state.tracks.length;
-  //   playTrack(newIndex);
-  // }
+  function playPreviousTrack() {
+    const newIndex =
+      (((state.currentTrackIndex + -1) % state.tracks.length) +
+        state.tracks.length) %
+      state.tracks.length;
+    const previousTrack = state.tracks[newIndex];
+    const track = `${serveur}/uploads/${previousTrack.file_name}`;
+    playTrack(
+      previousTrack.id,
+      track,
+      previousTrack.duration,
+      previousTrack.title,
+      previousTrack.isFavorite,
+      previousTrack.image,
+      newIndex,
+    );
+  }
 
-  // function playNextTrack() {
-  //   const newIndex = (state.currentTrackIndex + 1) % state.tracks.length;
-  //   playTrack(newIndex);
-  // }
+  function playNextTrack() {
+    const newIndex = (state.currentTrackIndex + 1) % state.tracks.length;
+    const nextTrack = state.tracks[newIndex];
+    const track = `${serveur}/uploads/${nextTrack.file_name}`;
+    playTrack(
+      nextTrack.id,
+      track,
+      nextTrack.duration,
+      nextTrack.title,
+      nextTrack.isFavorite,
+      nextTrack.image,
+      newIndex,
+    );
+  }
 
   function mute() {
     if (state.isMute) {
@@ -97,6 +106,7 @@ const useMusicPlayer = () => {
     return progressValue;
   }
 
+  // format le temps recu en minutes:secondes tels que 00:00
   function formatTime(time) {
     let minutes = Math.floor(time / 60);
     let seconds = Math.floor(time % 60);
@@ -124,8 +134,10 @@ const useMusicPlayer = () => {
     isPlaying: state.isPlaying,
     isLoaded: state.isLoaded,
     isMute: state.isMute,
-    // playPreviousTrack,
-    // playNextTrack,
+    setTracks,
+    playPreviousTrack,
+    playNextTrack,
+    tracks: state.tracks,
     mute,
     changeProgress,
     volume: state.volume,

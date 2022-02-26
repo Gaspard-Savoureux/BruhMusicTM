@@ -6,8 +6,7 @@ import useMusicPlayer from '../hooks/useMusicPlayer';
 import useToken from '../hooks/useToken';
 
 export default function Music({ music, songNum, favorites }) {
-  const { playTrack, formatTime, toggleFavorite, isFavorite } =
-    useMusicPlayer();
+  const { playTrack, formatTime } = useMusicPlayer();
   const [thisIsFavorite, setThisIsFavorite] = useState(
     favorites.includes(music.id),
   );
@@ -18,9 +17,27 @@ export default function Music({ music, songNum, favorites }) {
     : './bunny.png';
   const changeAudio = () => {
     const track = `${serveur}/uploads/${music.file_name}`;
-    if (thisIsFavorite)
-      playTrack(music.id, track, music.duration, music.title, true);
-    else playTrack(music.id, track, music.duration, music.title, false);
+    const index = songNum - 1;
+    if (thisIsFavorite) {
+      return playTrack(
+        music.id,
+        track,
+        music.duration,
+        music.title,
+        true,
+        imageSrc,
+        index,
+      );
+    }
+    return playTrack(
+      music.id,
+      track,
+      music.duration,
+      music.title,
+      false,
+      imageSrc,
+      index,
+    );
   };
 
   const addOrRemoveFav = async () => {
@@ -55,7 +72,7 @@ export default function Music({ music, songNum, favorites }) {
           src={imageSrc}
           width="50px"
           height="50px"
-          alt={`pic-${music.title}`}
+          alt={`pic-${music.id}`}
         />
         <div className="music-info-box">
           <div className="music-title">{music.title}</div>

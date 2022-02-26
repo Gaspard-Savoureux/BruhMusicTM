@@ -88,13 +88,6 @@ export default function CreateAlbums() {
     } else {
       console.log(res);
     }
-
-    // {
-    //   "name": "string",
-    //   "genre": "string",
-    //   "releaseDate": "2019-05-17",
-    //   "musicIds": albumSongs
-    // }
   };
 
   return (

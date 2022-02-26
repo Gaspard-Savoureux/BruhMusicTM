@@ -22,6 +22,8 @@ const Mediaplayer = () => {
     isFavorite,
     image,
     toggleFavorite,
+    playPreviousTrack,
+    playNextTrack,
   } = useMusicPlayer();
 
   const [timelineIsClicked, setTimelineIsClicked] = useState(false);
@@ -126,9 +128,7 @@ const Mediaplayer = () => {
             <div className="media-player-button">
               <i className="fas fa-random" />
             </div>
-            <div
-              className="media-player-button" /* onClick={() => backButtonHandler} */
-            >
+            <div className="media-player-button" onClick={playPreviousTrack}>
               <i className="fas fa-step-backward" />
             </div>
             <div className="media-player-button" onClick={togglePlay}>
@@ -138,9 +138,7 @@ const Mediaplayer = () => {
                 <i className="fas fa-play" />
               )}
             </div>
-            <div
-              className="media-player-button" /* onClick={forwardButtonHandler} */
-            >
+            <div className="media-player-button" onClick={playNextTrack}>
               <i className="fas fa-step-forward" />
             </div>
             <div className="media-player-button" onClick={addOrRemoveFav}>
