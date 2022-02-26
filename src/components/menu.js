@@ -108,7 +108,7 @@ function Menu() {
           <MenuLinkButton
             to="/create"
             icon="fas fa-plus"
-            text="new labum"
+            text="create"
             menuIsSlim={menuIsSlim}
           />
         )}
