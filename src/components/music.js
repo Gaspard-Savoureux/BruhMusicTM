@@ -17,10 +17,27 @@ export default function Music({ music, songNum, favorites }) {
     : './bunny.png';
   const changeAudio = () => {
     const track = `${serveur}/uploads/${music.file_name}`;
+    const index = songNum - 1;
     if (thisIsFavorite) {
-      return playTrack(music.id, track, music.duration, music.title, true);
+      return playTrack(
+        music.id,
+        track,
+        music.duration,
+        music.title,
+        true,
+        imageSrc,
+        index,
+      );
     }
-    return playTrack(music.id, track, music.duration, music.title, false);
+    return playTrack(
+      music.id,
+      track,
+      music.duration,
+      music.title,
+      false,
+      imageSrc,
+      index,
+    );
   };
 
   const addOrRemoveFav = async () => {

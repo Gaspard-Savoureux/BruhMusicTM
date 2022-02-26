@@ -31,7 +31,7 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     },
   });
-  win.setMenu(null);
+  // win.setMenu(null);
   win.loadFile('index.html');
 }
 
