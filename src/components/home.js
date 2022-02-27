@@ -1,20 +1,34 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import AlbumCard from './album-card';
+import { serveur } from '../const';
 
 import '../styles/container.css';
 
 const Home = () => {
-  const albumsTest = [];
+  const [albums, setAlbums] = useState([]);
+
+  useEffect(() => {
+    const getAlbums = async () => {
+      const res = await fetch(`${serveur}/album`, {
+        method: 'GET',
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        setAlbums(data);
+      }
+    };
+    getAlbums();
+  }, []);
+
 
   return (
     <div className="main-view-container">
-      {/* <Collection title="new" albums={albumsTest} /> */}
-      {/* <Collection title="popular" albums={albumsTest} /> */}
       <div className="grid-collection-container">
-        {albumsTest?.map((item) => (
-          <AlbumCard data={item} key={item.id} />
-        ))}
+        {albums?.map((item) => (
+          <AlbumCard album={item} key={item.id} />
+        )) ?? ''}
       </div>
     </div>
   );

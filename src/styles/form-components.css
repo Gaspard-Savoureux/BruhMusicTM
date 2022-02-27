@@ -31,12 +31,12 @@
 */
 
 .fileupload-container {
-  display: inline-block;
+  display: inline;
   height: 40px;
 }
 
 .fileupload-label {
-  display: flex;
+  display: inline-flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
@@ -112,4 +112,14 @@
   gap: 0.8rem;
 }
 
-.image-form {}
+.form-checkbox {
+  margin-right: 8px;
+}
+
+.create-text {
+  padding: 0px 10px 0px 10px;
+  margin-bottom: 10px;
+  height: 40px;
+  border-radius: 5px;
+  font-size: 1rem;
+}

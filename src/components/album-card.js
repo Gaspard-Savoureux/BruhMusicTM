@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import { serveur } from '../const';
 import '../styles/collection.css';
 
