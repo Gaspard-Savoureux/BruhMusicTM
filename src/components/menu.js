@@ -83,7 +83,7 @@ function Menu() {
           menuIsSlim={menuIsSlim}
         />
         <MenuLinkButton
-          to="/"
+          to="/playlists"
           icon="fas fa-music"
           text="Playlists"
           menuIsSlim={menuIsSlim}

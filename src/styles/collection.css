@@ -26,9 +26,21 @@
   padding: 16px;
 }
 
+.album-card-cover-container {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+}
+
 .album-card-cover {
   width: 100%;
-  object-fit: contain;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  object-fit: cover;
 }
 
 .album-card-title {
