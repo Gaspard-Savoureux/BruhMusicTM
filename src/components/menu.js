@@ -44,7 +44,6 @@ function Menu() {
 
     if (res.ok) {
       const data = await res.json();
-      console.log(data);
       setRegister(false); // Close Modal once registered
     } else {
       console.log('NOPE');

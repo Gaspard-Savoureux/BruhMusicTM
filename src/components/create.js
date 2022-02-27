@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import MusicList from './music-list';
 import FileUpload from './fileupload';
 import '../styles/container.css';
@@ -13,6 +14,7 @@ export default function CreateAlbums() {
   const albumSongs = [];
 
   const { getToken } = useToken();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const mounted = async () => {
@@ -84,6 +86,7 @@ export default function CreateAlbums() {
     });
     if (res.ok) {
       const data = await res.json();
+      navigate('/album');
       console.log(data);
     } else {
       console.log(res);
@@ -92,19 +95,14 @@ export default function CreateAlbums() {
 
   return (
     <div className="main-view-container">
-      <div className="section-title">
-        Upload a new song
-      </div>
+      <div className="section-title">Upload a new song</div>
       <form onSubmit={uploadSong}>
         <div className="create-form">
           <div className="create-form-label">Audio file</div>
           <FileUpload
             setSelectedFile={setSongFile}
             id="audio"
-            acceptedFileTypes={[
-              'audio/flac',
-              'audio/wav',
-            ]}
+            acceptedFileTypes={['audio/flac', 'audio/wav']}
           />
           <div className="create-form-label">Cover image</div>
           <FileUpload
@@ -118,29 +116,36 @@ export default function CreateAlbums() {
             ]}
           />
           <div className="button-container">
-            <button className="submit-button" type="submit">Upload</button>
+            <button className="submit-button" type="submit">
+              Upload
+            </button>
           </div>
         </div>
       </form>
-      <div className="section-title">
-        Create a new album
-      </div>
+      <div className="section-title">Create a new album</div>
       <form onSubmit={createAlbum}>
         <div className="create-form-label">Album name:</div>
         <input className="create-text" name="name" type="text" />
         <div className="create-form-label">Genre:</div>
         <input className="create-text" name="genre" type="text" />
         <div className="create-form-label">Songs:</div>
-        {
-          userSongList?.map((item) => (
-            <div key={item.id}>
-              <input className="form-checkbox" onClick={addSongToAlbum} type="checkbox" name={item.id} id={item.id} value={item.id} />
-              <label htmlFor={item.id}>{item.title}</label>
-            </div>
-          ))
-        }
+        {userSongList?.map((item) => (
+          <div key={item.id}>
+            <input
+              className="form-checkbox"
+              onClick={addSongToAlbum}
+              type="checkbox"
+              name={item.id}
+              id={item.id}
+              value={item.id}
+            />
+            <label htmlFor={item.id}>{item.title}</label>
+          </div>
+        ))}
         <div className="button-container" style={{ paddingTop: '1rem' }}>
-          <button className="submit-button" type="submit">Create album</button>
+          <button className="submit-button" type="submit">
+            Create album
+          </button>
         </div>
       </form>
     </div>

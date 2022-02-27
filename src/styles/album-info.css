@@ -3,6 +3,7 @@
   flex-direction: column;
   height: 100%;
   width: 100%;
+  margin-right: 0.5em;
   padding: 0px 10px 110px 10px;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -37,4 +38,13 @@
 .albuminfo-artist {
   font-size: 2em;
   font-weight: bold;
+}
+
+.albuminfo-ownership {
+  margin-top: 0.75em;
+  font-size: 1em;
+  font-weight: bold;
+}
+.submit-button {
+  margin-right: 0.5em;
 }

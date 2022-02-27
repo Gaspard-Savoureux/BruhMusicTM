@@ -10,14 +10,11 @@ const Album = () => {
 
   useEffect(() => {
     const getAlbums = async () => {
-      const res = await fetch(`${serveur}/album`, {
-        method: 'GET',
-      });
+      const res = await fetch(`${serveur}/album`);
 
       if (res.ok) {
         const data = await res.json();
         setAlbums(data);
-        console.log(data);
       }
     };
     getAlbums();
