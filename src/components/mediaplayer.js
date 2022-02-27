@@ -113,7 +113,7 @@ const Mediaplayer = () => {
         <div className="media-player-items-left">
           <img
             className="album-cover-icon"
-            src={image ? `${serveur}/uploads/${image}` : 'bunny.png'}
+            src={image ?? 'bunny.png'}
             alt="album cover"
           />
           <div className="song-info-box">

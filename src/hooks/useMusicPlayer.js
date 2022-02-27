@@ -48,22 +48,27 @@ const useMusicPlayer = () => {
 
   function setTracks(tracks) {
     setState({ ...state, tracks });
+    console.log(tracks);
   }
 
   function playPreviousTrack() {
     const newIndex =
-      (((state.currentTrackIndex + -1) % state.tracks.length) +
+      (((state.currentTrackIndex - 1) % state.tracks.length) +
         state.tracks.length) %
       state.tracks.length;
     const previousTrack = state.tracks[newIndex];
     const track = `${serveur}/uploads/${previousTrack.file_name}`;
+    const image = previousTrack.image
+      ? `${serveur}/uploads/${previousTrack.image}`
+      : 'bunny.png';
+
     playTrack(
       previousTrack.id,
       track,
       previousTrack.duration,
       previousTrack.title,
       previousTrack.isFavorite,
-      previousTrack.image,
+      image,
       newIndex,
     );
   }
@@ -72,13 +77,17 @@ const useMusicPlayer = () => {
     const newIndex = (state.currentTrackIndex + 1) % state.tracks.length;
     const nextTrack = state.tracks[newIndex];
     const track = `${serveur}/uploads/${nextTrack.file_name}`;
+    const image = nextTrack.image
+      ? `${serveur}/uploads/${nextTrack.image}`
+      : 'bunny.png';
+
     playTrack(
       nextTrack.id,
       track,
       nextTrack.duration,
       nextTrack.title,
       nextTrack.isFavorite,
-      nextTrack.image,
+      image,
       newIndex,
     );
   }
