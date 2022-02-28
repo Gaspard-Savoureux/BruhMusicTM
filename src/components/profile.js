@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FileUpload from './fileupload';
-// https://github.com/KaterinaLupacheva/react-progress-bar merci infiniment à cette personne
-import ProgressBar from '@ramonak/react-progress-bar';
 import { serveur } from '../const';
 import useToken from '../hooks/useToken';
 import '../styles/container.css';
@@ -14,12 +12,8 @@ export default function Profile() {
 
   const [user, setUser] = useState(null);
   const [selectedFile, setSelectedFile] = useState();
-  const [isSelected, setIsSelected] = useState(false);
-  const [isSuccess, setIsSuccess] = useState();
-  const [progress, setProgress] = useState();
   const { getToken } = useToken();
 
-  // FIXME it dont work
   const handleSubmission = async (event) => {
     event.preventDefault();
     const formData = new FormData();
@@ -35,31 +29,10 @@ export default function Profile() {
 
     if (res.ok) {
       console.log(res);
+      //setUser({ ...data, image: `${serveur}/uploads/${data.image}` });
     } else {
       console.error(res.statusText);
     }
-    //   const req = new XMLHttpRequest();
-    //   req.open('PUT', `${serveur}/user/profileImage`);
-    //   req.setRequestHeader('Authorization', `Bearer ${getToken()}`);
-
-    //   // upload progress event
-    //   req.upload.addEventListener('progress', (e) => {
-    //     // upload progress as percentage
-    //     setProgress(((e.loaded / e.total) * 100).toFixed());
-    //   });
-
-    //   // request finished event
-    //   req.addEventListener('load', () => {
-    //     // HTTP status message (200, 404 etc)
-    //     console.log(req.status);
-
-    //     // request.response holds response from the server
-    //     console.log(req.response);
-    //   });
-
-    //   // send POST request to server
-    //   req.send(formData);
-    //   console.log(req);
   };
 
   useEffect(() => {
@@ -75,7 +48,6 @@ export default function Profile() {
       if (res.ok) {
         const data = await res.json();
         setUser({ ...data, image: `${serveur}/uploads/${data.image}` });
-        console.log(data);
       }
     };
     getUserInfo();
@@ -92,12 +64,13 @@ export default function Profile() {
         <div className="albuminfo-infobox">
           <div className="albuminfo-title">{user?.username ?? ''}</div>
           <div className="albuminfo-artist">
-            followers: {user?.followers ?? ''}
+            Abonnées: {user?.followers ?? ''}
           </div>
         </div>
       </div>
       <div>
         <form onSubmit={handleSubmission}>
+          <div className="">Changez de photo de profil:</div>
           <FileUpload
             setSelectedFile={setSelectedFile}
             acceptedFileTypes={[
@@ -108,7 +81,9 @@ export default function Profile() {
             ]}
           />
           <br />
-          <input type="submit" value="XD" />
+          <button className="submit-button" type="submit">
+            Téléverser
+          </button>
         </form>
       </div>
     </div>

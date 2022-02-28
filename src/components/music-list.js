@@ -6,8 +6,8 @@ const MusicList = ({ music, favorites }) => {
     <div className="ml-container">
       <div className="ml-header">
         <div className="ml-header-song-number">#</div>
-        <div className="ml-header-title">Title</div>
-        <div className="ml-header-duration">Duration</div>
+        <div className="ml-header-title">Titre</div>
+        <div className="ml-header-duration">Durée</div>
       </div>
       <div className="ml-list">
         {music?.map((item) => (

@@ -70,12 +70,12 @@ export default function Search() {
 
   return (
     <div className="main-view-container">
-      <div className="section-title">Search</div>
+      <div className="section-title">Recherche</div>
       <form className="search-bar-container" onSubmit={onSubmitSearch}>
         <input
           className="search-bar"
           type="text"
-          placeholder="Search"
+          placeholder="Recherche"
           onChange={handleSearchChange}
         />
         <div

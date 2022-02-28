@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MusicList from './music-list';
+// https://github.com/KaterinaLupacheva/react-progress-bar merci infiniment à cette personne
+import ProgressBar from '@ramonak/react-progress-bar';
 import FileUpload from './fileupload';
 import '../styles/container.css';
 import { serveur } from '../const';
@@ -10,7 +11,10 @@ export default function CreateAlbums() {
   const [userSongList, setUserSongList] = useState(null);
   const [songFile, setSongFile] = useState(null);
   const [imageFile, setImageFile] = useState(null);
-  // const [albumSongs, setAlbumSongs] = useState(null);
+  const [progress, setProgress] = useState(null);
+  const [message, setMessage] = useState(null);
+  const [colorMsg, setColorMsg] = useState(null);
+
   const albumSongs = [];
 
   const { getToken } = useToken();
@@ -40,19 +44,25 @@ export default function CreateAlbums() {
     const formData = new FormData();
     formData.append('music', songFile);
     formData.append('image', imageFile);
-    const res = await fetch(`${serveur}/music`, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
+    const req = new XMLHttpRequest();
+    req.open('POST', `${serveur}/music`);
+    req.setRequestHeader('Authorization', `Bearer ${token}`);
+
+    req.upload.addEventListener('progress', (e) => {
+      setProgress(((e.loaded / e.total) * 100).toFixed());
     });
-    if (res.ok) {
-      const data = await res.json();
-      console.log(data);
-    } else {
-      console.log(res);
-    }
+
+    req.addEventListener('load', () => {
+      if (req.status === 201) {
+        setMessage('Téléversement réussi avec succès');
+        setColorMsg('#60e026');
+      } else {
+        setMessage("Une erreur c'est produit lors du téléversement");
+        setColorMsg('#f44336');
+      }
+    });
+
+    req.send(formData);
   };
 
   const addSongToAlbum = (event) => {
@@ -64,13 +74,11 @@ export default function CreateAlbums() {
     } else {
       albumSongs.push(id);
     }
-    console.log(albumSongs);
   };
 
   const createAlbum = async (event) => {
     event.preventDefault();
     const token = getToken();
-    console.log(new Date().toISOString().slice(0, 10));
     const res = await fetch(`${serveur}/album`, {
       method: 'POST',
       body: JSON.stringify({
@@ -85,9 +93,7 @@ export default function CreateAlbums() {
       },
     });
     if (res.ok) {
-      const data = await res.json();
       navigate('/album');
-      console.log(data);
     } else {
       console.log(res);
     }
@@ -95,16 +101,16 @@ export default function CreateAlbums() {
 
   return (
     <div className="main-view-container">
-      <div className="section-title">Upload a new song</div>
+      <div className="section-title">Téléverser une nouvelle musique</div>
       <form onSubmit={uploadSong}>
         <div className="create-form">
-          <div className="create-form-label">Audio file</div>
+          <div className="create-form-label">Fichier Audio</div>
           <FileUpload
             setSelectedFile={setSongFile}
             id="audio"
             acceptedFileTypes={['audio/flac', 'audio/wav']}
           />
-          <div className="create-form-label">Cover image</div>
+          <div className="create-form-label">Cover de la musique</div>
           <FileUpload
             setSelectedFile={setImageFile}
             id="image"
@@ -117,18 +123,29 @@ export default function CreateAlbums() {
           />
           <div className="button-container">
             <button className="submit-button" type="submit">
-              Upload
+              Téléverser
             </button>
           </div>
+          {progress && (
+            <>
+              <ProgressBar
+                completed={progress}
+                maxCompleted={100}
+                customLabel={`${progress}%`}
+                width="50%"
+              />
+              <p style={{ color: colorMsg }}>{message}</p>
+            </>
+          )}
         </div>
       </form>
-      <div className="section-title">Create a new album</div>
+      <div className="section-title">Créé un nouvelle album</div>
       <form onSubmit={createAlbum}>
-        <div className="create-form-label">Album name:</div>
+        <div className="create-form-label">Nom de l&apos;album:</div>
         <input className="create-text" name="name" type="text" />
         <div className="create-form-label">Genre:</div>
         <input className="create-text" name="genre" type="text" />
-        <div className="create-form-label">Songs:</div>
+        <div className="create-form-label">Vos musiques:</div>
         {userSongList?.map((item) => (
           <div key={item.id}>
             <input
@@ -144,7 +161,7 @@ export default function CreateAlbums() {
         ))}
         <div className="button-container" style={{ paddingTop: '1rem' }}>
           <button className="submit-button" type="submit">
-            Create album
+            Créé l&apos;album
           </button>
         </div>
       </form>

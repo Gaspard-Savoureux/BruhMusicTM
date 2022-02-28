@@ -23,6 +23,7 @@ const useMusicPlayer = () => {
     isFavorite,
     image,
     currentTrackIndex,
+    artist,
   ) {
     state.audioPlayer.setAttribute('src', track);
     state.audioPlayer.load();
@@ -43,12 +44,12 @@ const useMusicPlayer = () => {
       isLoaded: true,
       image: image ?? state.image,
       currentTrackIndex,
+      artist,
     });
   }
 
   function setTracks(tracks) {
     setState({ ...state, tracks });
-    console.log(tracks);
   }
 
   function playPreviousTrack() {
@@ -158,6 +159,7 @@ const useMusicPlayer = () => {
     isFavorite: state.isFavorite,
     image: state.image,
     toggleFavorite,
+    artist: state.artist,
   };
 };
 

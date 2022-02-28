@@ -27,6 +27,7 @@ export default function Music({ music, songNum, favorites }) {
         true,
         imageSrc,
         index,
+        music.username,
       );
     }
     return playTrack(
@@ -37,6 +38,7 @@ export default function Music({ music, songNum, favorites }) {
       false,
       imageSrc,
       index,
+      music.username,
     );
   };
 
@@ -76,7 +78,7 @@ export default function Music({ music, songNum, favorites }) {
         />
         <div className="music-info-box">
           <div className="music-title">{music.title}</div>
-          <div className="music-artist">{music.user_id}</div>
+          <div className="music-artist">{music.username}</div>
         </div>
         <div className="music-box-end">
           <div className="music-duration">{formatTime(music.duration)}</div>

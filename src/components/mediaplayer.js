@@ -24,6 +24,7 @@ const Mediaplayer = () => {
     toggleFavorite,
     playPreviousTrack,
     playNextTrack,
+    artist,
   } = useMusicPlayer();
 
   const [timelineIsClicked, setTimelineIsClicked] = useState(false);
@@ -118,9 +119,7 @@ const Mediaplayer = () => {
           />
           <div className="song-info-box">
             <div className="song-title">{currentTrackName}</div>
-            <div className="artist-name">
-              by Artist Name sdf sdf sdf sdf sdfsdfa sadf sdfs fsdf s
-            </div>
+            {artist && <div className="artist-name">by {artist}</div>}
           </div>
         </div>
         <div className="media-player-items-center">
