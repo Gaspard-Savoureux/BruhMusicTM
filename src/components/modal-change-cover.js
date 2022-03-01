@@ -32,7 +32,7 @@ const ModalChangeCover = ({ isOpen, onRequestClose, id }) => {
       body: formData,
     });
     if (res.ok) {
-      navigate('album');
+      navigate('settings');
       navigate(`/album/${id}`);
     } else {
       console.log(res);

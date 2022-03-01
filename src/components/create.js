@@ -63,6 +63,8 @@ export default function CreateAlbums() {
     });
 
     req.send(formData);
+    navigate('/settings');
+    navigate('/create');
   };
 
   const addSongToAlbum = (event) => {
@@ -139,7 +141,7 @@ export default function CreateAlbums() {
           )}
         </div>
       </form>
-      <div className="section-title">Créé un nouvelle album</div>
+      <div className="section-title">Créé un nouvel album</div>
       <form onSubmit={createAlbum}>
         <div className="create-form-label">Nom de l&apos;album:</div>
         <input className="create-text" name="name" type="text" />

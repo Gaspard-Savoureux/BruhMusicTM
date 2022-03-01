@@ -1,16 +1,62 @@
-import React, { useState } from "react";
-import Modal from "react-modal";
-import "../styles/menu.css";
-import "../styles/login.css";
+import React, { useState } from 'react';
+import Modal from 'react-modal';
+import { useNavigate } from 'react-router-dom';
+import useToken from '../hooks/useToken';
+import { serveur } from '../const';
+
+import '../styles/menu.css';
+import '../styles/login.css';
 
 const ModalRegister = ({
+  //
   isOpen,
   onRequestClose,
-  onSubmit,
-  userCred,
-  password,
+  setRegister,
+  setLogin,
   switchMod,
 }) => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
+  async function register() {
+    const bodyContent = {
+      password,
+      email,
+      username,
+    };
+
+    const res = await fetch(`${serveur}/auth/register`, {
+      method: 'POST',
+      body: JSON.stringify(bodyContent),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (res.ok) {
+      setRegister(false); // Ferme la modal une fois enregistrer
+      setLogin(true); // ouvrir la modal login une fois enregistrer
+    } else {
+      console.error(res.statusText);
+    }
+  }
+
+  function handleRegister(e) {
+    e.preventDefault();
+    register();
+  }
+
+  function handleChangeEmail(event) {
+    setEmail(event.target.value);
+  }
+
+  function handleChangeUserCred(event) {
+    setUsername(event.target.value);
+  }
+
+  function handleChangePassword(event) {
+    setPassword(event.target.value);
+  }
+
   return (
     <Modal
       isOpen={isOpen}
@@ -29,33 +75,44 @@ const ModalRegister = ({
       }}
     >
       <div className="center">
-        <h1>Register</h1>
-        <form method="post" onSubmit={onSubmit}>
+        <h1>S&apos;inscrire</h1>
+        <form method="post" onSubmit={handleRegister}>
           <div className="txt_field">
             <input
               className="input-username"
               type="text"
-              onChange={userCred}
+              onChange={handleChangeEmail}
               required
             />
             <span></span>
-            <label>Username</label>
+            <label>Email</label>
+          </div>
+
+          <div className="txt_field">
+            <input
+              className="input-username"
+              type="text"
+              onChange={handleChangeUserCred}
+              required
+            />
+            <span></span>
+            <label>Nom d&apos;utilisateur</label>
           </div>
           <div className="txt_field">
             <input
               className="input-password"
               type="password"
-              onChange={password}
+              onChange={handleChangePassword}
               required
             />
             <span></span>
-            <label>Password</label>
+            <label>Mot de passe</label>
           </div>
-          <input className="login-submit" type="submit" value="Register" />
+          <input className="login-submit" type="submit" value="S'incrire" />
           <div className="signup_link">
-            Already a member?{" "}
+            Déjà enregistrer?{' '}
             <a href="#" onClick={switchMod}>
-              Login
+              Connexion
             </a>
           </div>
         </form>

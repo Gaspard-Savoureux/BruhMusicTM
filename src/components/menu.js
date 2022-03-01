@@ -73,13 +73,13 @@ function Menu() {
         <MenuLinkButton
           to="/"
           icon="fas fa-home"
-          text="Home"
+          text="Accueil"
           menuIsSlim={menuIsSlim}
         />
         <MenuLinkButton
           to="/search"
           icon="fas fa-search"
-          text="Search"
+          text="Musique"
           menuIsSlim={menuIsSlim}
         />
         {getToken() && (
@@ -93,7 +93,7 @@ function Menu() {
         <MenuLinkButton
           to="/album"
           icon="fas fa-users"
-          text="albums"
+          text="Albums"
           menuIsSlim={menuIsSlim}
         />
         {getToken() && (
@@ -108,7 +108,7 @@ function Menu() {
           <MenuLinkButton
             to="/create"
             icon="fas fa-plus"
-            text="create"
+            text="Créé"
             menuIsSlim={menuIsSlim}
           />
         )}
@@ -123,14 +123,14 @@ function Menu() {
           <MenuButton
             onClick={() => changeToken('')}
             icon="fas fa-sign-out-alt"
-            text="Logout"
+            text="Déconnexion"
             menuIsSlim={menuIsSlim}
           />
         ) : (
           <MenuButton
             onClick={() => setLogin(true)}
             icon="fas fa-sign-in-alt"
-            text="Login"
+            text="Connexion"
             menuIsSlim={menuIsSlim}
           />
         )}
@@ -146,7 +146,7 @@ function Menu() {
           <MenuButton
             onClick={() => setRegister(true)}
             icon="fas fa-edit"
-            text="Register"
+            text="S'enregistrer"
             menuIsSlim={menuIsSlim}
           />
         )}
@@ -154,7 +154,7 @@ function Menu() {
         <MenuLinkButton
           to="/settings"
           icon="fas fa-cog"
-          text="Settings"
+          text="Paramètres"
           menuIsSlim={menuIsSlim}
         />
         <div
@@ -184,9 +184,8 @@ function Menu() {
       <ModalRegister
         isOpen={registerModal}
         onRequestClose={() => setRegister(false)}
-        onSubmit={() => handleRegister()}
-        userCred={() => handleChangeUserCred()}
-        password={() => handleChangePassword()}
+        setRegister={setRegister}
+        setLogin={setLogin}
         switchMod={() => switchLogin()}
       />
     </div>

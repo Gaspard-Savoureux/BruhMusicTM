@@ -33,7 +33,7 @@ const useMusicPlayer = () => {
       state.audioPlayer.volume = state.volume;
     }
     state.audioPlayer.play();
-    state.audioPlayer.addEventListener('ended', playNextTrack);
+
     setState({
       ...state,
       trackId,
@@ -53,6 +53,7 @@ const useMusicPlayer = () => {
   }
 
   function playPreviousTrack() {
+    if (state.tracks.length === 0) return null;
     const newIndex =
       (((state.currentTrackIndex - 1) % state.tracks.length) +
         state.tracks.length) %
@@ -63,7 +64,7 @@ const useMusicPlayer = () => {
       ? `${serveur}/uploads/${previousTrack.image}`
       : 'bunny.png';
 
-    playTrack(
+    return playTrack(
       previousTrack.id,
       track,
       previousTrack.duration,
@@ -75,6 +76,7 @@ const useMusicPlayer = () => {
   }
 
   function playNextTrack() {
+    if (state.tracks.length === 0) return null;
     const newIndex = (state.currentTrackIndex + 1) % state.tracks.length;
     const nextTrack = state.tracks[newIndex];
     const track = `${serveur}/uploads/${nextTrack.file_name}`;
@@ -82,7 +84,7 @@ const useMusicPlayer = () => {
       ? `${serveur}/uploads/${nextTrack.image}`
       : 'bunny.png';
 
-    playTrack(
+    return playTrack(
       nextTrack.id,
       track,
       nextTrack.duration,
@@ -123,6 +125,10 @@ const useMusicPlayer = () => {
     if (Number.isNaN(minutes)) minutes = 0;
     if (Number.isNaN(seconds)) seconds = 0;
     const returnedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+    if (state.audioPlayer.currentTime === state.audioPlayer.duration) {
+      playNextTrack();
+    }
     return `${minutes}:${returnedSeconds}`;
   }
 
@@ -153,7 +159,6 @@ const useMusicPlayer = () => {
     volume: state.volume,
     setVolume,
     duration: state.duration,
-    // currentTime,
     formatTime,
     audio: state.audioPlayer,
     isFavorite: state.isFavorite,

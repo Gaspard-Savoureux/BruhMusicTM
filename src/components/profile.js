@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
 import FileUpload from './fileupload';
+
 import { serveur } from '../const';
 import useToken from '../hooks/useToken';
+
 import '../styles/container.css';
 import '../styles/form-components.css';
 import '../styles/song.css';
@@ -12,7 +15,24 @@ export default function Profile() {
 
   const [user, setUser] = useState(null);
   const [selectedFile, setSelectedFile] = useState();
+
   const { getToken } = useToken();
+
+  const getRes = async () => {
+    // TODO get user by id
+    const res = fetch(`${serveur}/user`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+      },
+    });
+
+    return res;
+    // if (res.ok) {
+    //   const data = await res.json();
+    //   setUser({ ...data, image: `${serveur}/uploads/${data.image}` });
+    // }
+  };
 
   const handleSubmission = async (event) => {
     event.preventDefault();
@@ -28,8 +48,12 @@ export default function Profile() {
     });
 
     if (res.ok) {
-      console.log(res);
-      //setUser({ ...data, image: `${serveur}/uploads/${data.image}` });
+      const resp = await getRes();
+
+      if (resp.ok) {
+        const data = await resp.json();
+        setUser({ ...data, image: `${serveur}/uploads/${data.image}` });
+      }
     } else {
       console.error(res.statusText);
     }
@@ -38,18 +62,13 @@ export default function Profile() {
   useEffect(() => {
     const getUserInfo = async () => {
       // TODO get user by id
-      const res = await fetch(`${serveur}/user`, {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${getToken()}`,
-        },
-      });
-
+      const res = await getRes();
       if (res.ok) {
         const data = await res.json();
         setUser({ ...data, image: `${serveur}/uploads/${data.image}` });
       }
     };
+
     getUserInfo();
   }, []);
 
