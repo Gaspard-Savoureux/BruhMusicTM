@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
+import useMusicPlayer from '../hooks/useMusicPlayer';
 import useToken from '../hooks/useToken';
 import { serveur } from '../const';
 import MusicList from './music-list';
@@ -16,6 +17,7 @@ export default function AlbumInfo() {
   const [ownAlbum, setOwnAlbum] = useState();
   const [modalOpen, setModalOpen] = useState();
 
+  const { setTracks } = useMusicPlayer();
   const { getToken } = useToken();
 
   const token = getToken();
@@ -36,6 +38,11 @@ export default function AlbumInfo() {
           idAlbum.push(data[i].id);
         }
         setOwnAlbum(idAlbum.includes(parseInt(id, 10)));
+
+        const tracks = data.map((track) => {
+          return { ...track, isFavorite: favorites.includes(track.id) };
+        });
+        setTracks(tracks);
       } else {
         console.log(res);
       }
