@@ -20,5 +20,10 @@
   margin: 0;
   border: solid 1px var(--color-grey);
   cursor: pointer;
-  max-width: 10rem
+  max-width: 10rem;
+}
+
+.playlist:hover {
+  background: var(--color-background-secondary);
+  cursor: pointer;
 }

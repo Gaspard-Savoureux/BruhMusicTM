@@ -5,6 +5,7 @@ import useMusicPlayer from '../hooks/useMusicPlayer';
 import useToken from '../hooks/useToken';
 import { serveur } from '../const';
 import MusicList from './music-list';
+import GoBack from './goback-button';
 import ModalChangeCover from './modal-change-cover';
 
 import '../styles/album-info.css';
@@ -110,6 +111,7 @@ export default function AlbumInfo() {
   };
   return (
     <div className="albuminfo-container">
+      <GoBack escape="/album" />
       <div className="albuminfo-header">
         <img className="albuminfo-image" src={imgSrc} alt="album cover" />
         <div className="albuminfo-infobox">

@@ -25,8 +25,8 @@ export default function Playlists() {
 
       if (res.ok) {
         const data = await res.json();
-        setPlaylist(data);
-        console.log(...data);
+        const playlists = data.splice(1);
+        setPlaylist(playlists);
       }
     };
     getPlaylists();
@@ -35,8 +35,12 @@ export default function Playlists() {
   return (
     playlist != null && (
       <div className="main-view-container">
-        <button className="newplaylist" onClick={() => setModal(true)}>
-          <p>Create New Playlist</p>
+        <button
+          className="newplaylist"
+          type="button"
+          onClick={() => setModal(true)}
+        >
+          <p>Créé une nouvelle playlist</p>
         </button>
         <div className="container">
           {playlist?.map((item) => (

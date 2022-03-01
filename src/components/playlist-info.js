@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import ModalAddPlaylist from './modal-add-playlist';
 import { serveur } from '../const';
 import MusicList from './music-list';
+import GoBack from './goback-button';
 import useMusicPlayer from '../hooks/useMusicPlayer';
 
 import '../styles/container.css';
@@ -15,6 +16,7 @@ export default function PlaylistInfo() {
   const [music, setMusic] = useState(null);
   const [favorite, setFavorites] = useState([]);
   const { setTracks } = useMusicPlayer();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getPlaylistInfo = async () => {
@@ -24,7 +26,6 @@ export default function PlaylistInfo() {
 
       if (res.ok) {
         const data = await res.json();
-        console.log(data);
         const { length } = data;
         const idFav = [];
         for (let i = 0; i < length; i += 1) {
@@ -44,7 +45,18 @@ export default function PlaylistInfo() {
   return (
     music != null && (
       <div className="main-view-container">
-        <button className="button-component" onClick={() => setModal(true)}>Add a song to playlist</button>
+        <div className="top">
+          <GoBack escape="/playlists" />
+          <div>
+            <button
+              className="button-component addPlaylist"
+              type="button"
+              onClick={() => setModal(true)}
+            >
+              Add a song to playlist
+            </button>
+          </div>
+        </div>
         <MusicList music={music} favorites={favorite} />
         <ModalAddPlaylist
           isOpen={modal}

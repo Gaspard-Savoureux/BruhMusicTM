@@ -14,3 +14,13 @@
   grid-gap: 10px 10px;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
+
+.top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.addPlaylist {
+  top: 30%;
+  position: relative;
+}

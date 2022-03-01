@@ -1,14 +1,14 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { serveur } from "../const";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { serveur } from '../const';
 
-import "../styles/collection.css";
-import "../styles/playlist.css";
+import '../styles/collection.css';
+import '../styles/playlist.css';
 
 const Playlist = ({ id, name, description }) => {
   return (
     <Link to={`/playlists/${id}`} className="card">
-      <div className="container">
+      <div className="container playlist">
         <h1>
           <b>{name}</b>
         </h1>

@@ -32,7 +32,8 @@ const ModalCreatePlaylist = ({ isOpen, onRequestClose, setModal }) => {
     if (res.ok) {
       const data = await res.json();
       setModal(false);
-      console.log(data);
+      navigate('/settings');
+      navigate('/playlists');
     } else {
       console.error(res.statusText);
     }
@@ -41,7 +42,6 @@ const ModalCreatePlaylist = ({ isOpen, onRequestClose, setModal }) => {
   function handleCreatePlaylist(e) {
     e.preventDefault();
     CreatePlaylist();
-    console.log('created');
   }
   function handleChangeName(event) {
     setName(event.target.value);
