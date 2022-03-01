@@ -153,7 +153,6 @@ const useMusicPlayer = () => {
     volume: state.volume,
     setVolume,
     duration: state.duration,
-    // currentTime,
     formatTime,
     audio: state.audioPlayer,
     isFavorite: state.isFavorite,

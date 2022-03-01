@@ -70,7 +70,7 @@ const ModalLogin = ({
       }}
     >
       <div className="center">
-        <h1>Login</h1>
+        <h1>Connexion</h1>
         <form method="post" onSubmit={handleLogin}>
           <div className="txt_field">
             <input
@@ -80,25 +80,24 @@ const ModalLogin = ({
               required
             />
             <span />
-            <label>Username</label>
+            <label>Nom d&apos;utilisateur</label>
           </div>
           <div className="txt_field">
             <input
-              id="username"
               className="input-password"
               type="password"
               onChange={handleChangePassword}
               required
             />
             <span />
-            <label>Password</label>
+            <label>Mot de passe</label>
           </div>
-          <div className="pass">Forgot Password?</div>
-          <input className="login-submit" type="submit" value="Login" />
+          <div className="pass">Mot de passe oublié?</div>
+          <input className="login-submit" type="submit" value="Connexion" />
           <div className="signup_link">
-            Not a member? &nbsp;
+            Pas encore un membre? &nbsp;
             <a to="/" onClick={switchMod}>
-              Signup
+              Inscrivez-vous!
             </a>
           </div>
         </form>
