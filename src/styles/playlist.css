@@ -8,10 +8,17 @@
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
 }
 
-.container {
-  padding: 2px 16px;
-}
-
 .avatar {
   width: 100%;
+}
+
+.newplaylist {
+  display: inline-block;
+  height: 40px;
+  border-radius: 5px;
+  padding: 0px 10px 0px 10px;
+  margin: 0;
+  border: solid 1px var(--color-grey);
+  cursor: pointer;
+  max-width: 10rem
 }

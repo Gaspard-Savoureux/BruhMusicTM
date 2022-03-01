@@ -105,6 +105,7 @@
   margin: 0;
   border: solid 1px var(--color-grey);
   cursor: pointer;
+  margin-bottom: 5em;
 }
 
 .create-form {
@@ -123,4 +124,55 @@
   height: 40px;
   border-radius: 5px;
   font-size: 1rem;
+}
+
+.button-component {
+  display: inline-block;
+  height: 40px;
+  border-radius: 5px;
+  padding: 0px 10px 0px 10px;
+  margin: 0;
+  border: solid 1px var(--color-grey);
+  cursor: pointer;
+  max-width: 11rem;
+}
+
+/*
+  MODAL SEARCH
+*/
+
+.modal-search-bar-container {
+  display: flex;
+  height: 40px;
+}
+
+.modal-search-bar {
+  height: 40px;
+  padding: 0px 10px 0px 10px;
+  border-radius: 5px 0px 0px 5px;
+  border-style: none;
+  font-size: 1em;
+  border: solid 1px var(--color-grey);
+  border-right: solid 1px var(--color-black);
+}
+
+.modal-search-button {
+  display: flex;
+  height: 40px;
+  border-radius: 0px 5px 5px 0px;
+  background-color: var(--color-primary);
+  cursor: pointer;
+  padding: 0px 10px 0px 10px;
+  font-size: 1.6rem;
+  align-items: center;
+}
+
+.modal-search-result-list {
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
+.modal-search-result-list p {
+  cursor: pointer;
+  padding-top: 2px;
 }

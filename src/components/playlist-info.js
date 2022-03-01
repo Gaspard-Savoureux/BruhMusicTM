@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+import ModalAddPlaylist from './modal-add-playlist';
 import { serveur } from '../const';
 import MusicList from './music-list';
 import useMusicPlayer from '../hooks/useMusicPlayer';
 
-import '../styles/album-info.css';
+import '../styles/container.css';
+import '../styles/form-components.css';
 
 export default function PlaylistInfo() {
   const { id } = useParams();
+  const [modal, setModal] = useState(false);
   const [music, setMusic] = useState(null);
   const [favorite, setFavorites] = useState([]);
   const { setTracks } = useMusicPlayer();
 
   useEffect(() => {
-    // TODO fetch album information
     const getPlaylistInfo = async () => {
       const res = await fetch(`${serveur}/playlists-music/${id}`, {
         headers: { Accept: 'application/json' },
@@ -41,21 +43,15 @@ export default function PlaylistInfo() {
 
   return (
     music != null && (
-      <div className="albuminfo-container">
-        <div className="albuminfo-header">
-          <img
-            className="albuminfo-image"
-            src={music?.image ?? './bunny.png'}
-            alt="album cover"
-          />
-          <div className="albuminfo-infobox">
-            <div className="albuminfo-title">{music?.title ?? ''}</div>
-            <div className="albuminfo-artist">{music?.description ?? ''}</div>
-          </div>
-        </div>
-        <div className="main-view-container">
-          <MusicList music={music} favorites={favorite} />
-        </div>
+      <div className="main-view-container">
+        <button className="button-component" onClick={() => setModal(true)}>Add a song to playlist</button>
+        <MusicList music={music} favorites={favorite} />
+        <ModalAddPlaylist
+          isOpen={modal}
+          onRequestClose={() => setModal(false)}
+          setModal={setModal}
+          id={id}
+        />
       </div>
     )
   );

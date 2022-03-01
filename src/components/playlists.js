@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import FileUpload from './fileupload';
-// https://github.com/KaterinaLupacheva/react-progress-bar merci infiniment à cette personne
-import ProgressBar from '@ramonak/react-progress-bar';
 import Playlist from './playlist';
 import { serveur } from '../const';
 import useToken from '../hooks/useToken';
@@ -12,7 +10,7 @@ import '../styles/song.css';
 import ModalCreatePlaylist from './modal-create-playlist';
 
 export default function Playlists() {
-  const [modal, setModal] = useState(false); // TODO Modal
+  const [modal, setModal] = useState(false);
   const [playlist, setPlaylist] = useState();
   const { getToken } = useToken();
 
@@ -36,9 +34,9 @@ export default function Playlists() {
 
   return (
     playlist != null && (
-      <div className="albuminfo-container">
-        <button onClick={() => setModal(true)}>
-          <p>Create New</p>
+      <div className="main-view-container">
+        <button className="newplaylist" onClick={() => setModal(true)}>
+          <p>Create New Playlist</p>
         </button>
         <div className="container">
           {playlist?.map((item) => (

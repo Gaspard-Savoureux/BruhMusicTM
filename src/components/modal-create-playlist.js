@@ -31,6 +31,7 @@ const ModalCreatePlaylist = ({ isOpen, onRequestClose, setModal }) => {
 
     if (res.ok) {
       const data = await res.json();
+      setModal(false);
       console.log(data);
     } else {
       console.error(res.statusText);
@@ -80,21 +81,20 @@ const ModalCreatePlaylist = ({ isOpen, onRequestClose, setModal }) => {
             <label>Playlist Name</label>
           </div>
           <div className="txt_field">
-            <textarea
-              style={{ color: 'black' }}
-              rows="5"
+            <input
+              className="input-username"
+              type="text"
               onChange={handleChangeDescription}
-              className="input-password"
               required
             />
             <span />
-            <label>Password</label>
+            <label>Description</label>
           </div>
 
           <input className="login-submit" type="submit" value="Create" />
-          <button className="login-submit" onClick={() => setModal(false)}>
-            Cancel
-          </button>
+          {/* <button className="login-submit" onClick={() => setModal(false)}> */}
+          {/*   Cancel */}
+          {/* </button> */}
         </form>
       </div>
     </Modal>

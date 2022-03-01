@@ -82,19 +82,20 @@ function Menu() {
           text="Search"
           menuIsSlim={menuIsSlim}
         />
-        <MenuLinkButton
-          to="/playlists"
-          icon="fas fa-music"
-          text="Playlists"
-          menuIsSlim={menuIsSlim}
-        />
+        {getToken() && (
+          <MenuLinkButton
+            to="/playlists"
+            icon="fas fa-music"
+            text="Playlists"
+            menuIsSlim={menuIsSlim}
+          />
+        )}
         <MenuLinkButton
           to="/album"
           icon="fas fa-users"
           text="albums"
           menuIsSlim={menuIsSlim}
         />
-
         {getToken() && (
           <MenuLinkButton
             to="/favorite"
