@@ -15,7 +15,15 @@
 
 .music-container {
   display: grid;
-  grid-template-columns: 5fr;
+  grid-template-columns: 5fr 1em;
+  padding: 10px 16px;
+  grid-gap: 16px;
+  align-items: center;
+}
+
+.own-music-container {
+  display: grid;
+  grid-template-columns: 5fr 1em 1em;
   padding: 10px 16px;
   grid-gap: 16px;
   align-items: center;
@@ -64,6 +72,20 @@
 
 .music-favorite {
   color: var(--color-text-secondary);
+}
+
+.music-favorite:hover {
+  background: var(--color-background-secondary);
+  cursor: pointer;
+}
+
+.trash {
+  color: var(--color-text-secondary);
+}
+
+.trash:hover {
+  background: var(--color-background-secondary);
+  cursor: pointer;
 }
 
 .wrapper {

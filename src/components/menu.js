@@ -3,7 +3,6 @@ import MenuLinkButton from './menu-link-button';
 import MenuButton from './menu-button';
 import ModalLogin from './modal-login';
 import ModalRegister from './modal-register';
-import { serveur } from '../const';
 import useToken from '../hooks/useToken';
 import '../styles/menu.css';
 import '../styles/login.css';
@@ -12,8 +11,6 @@ function Menu() {
   const [menuIsSlim, setMenuIsSlim] = useState(true);
   const [loginModal, setLogin] = useState(false);
   const [registerModal, setRegister] = useState(false);
-  const [userCred, setUserCred] = useState('');
-  const [password, setPassword] = useState('');
 
   const { changeToken, getToken } = useToken();
   const toggleMenuIsSlim = () => setMenuIsSlim(!menuIsSlim);
@@ -27,41 +24,6 @@ function Menu() {
   function switchRegister() {
     setLogin(false);
     setRegister(true);
-  }
-
-  async function register() {
-    const bodyContent = {
-      password,
-      email: userCred,
-      username: userCred,
-    };
-
-    const res = await fetch(`${serveur}/auth/register`, {
-      method: 'POST',
-      body: JSON.stringify(bodyContent),
-      headers: { 'Content-Type': 'application/json' },
-    });
-
-    if (res.ok) {
-      const data = await res.json();
-      setRegister(false); // Close Modal once registered
-    } else {
-      console.log('NOPE');
-      console.error(res.statusText);
-    }
-  }
-
-  function handleChangeUserCred(event) {
-    setUserCred(event.target.value);
-  }
-
-  function handleChangePassword(event) {
-    setPassword(event.target.value);
-  }
-
-  function handleRegister(e) {
-    e.preventDefault();
-    register();
   }
 
   return (
@@ -101,6 +63,14 @@ function Menu() {
             to="/favorite"
             icon="fas fa-heart"
             text="Favorites"
+            menuIsSlim={menuIsSlim}
+          />
+        )}
+        {getToken() && (
+          <MenuLinkButton
+            to="/owntracks"
+            icon="fas fa-save"
+            text="Your Tracks"
             menuIsSlim={menuIsSlim}
           />
         )}

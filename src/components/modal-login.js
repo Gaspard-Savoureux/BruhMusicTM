@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { useNavigate } from 'react-router-dom';
+
 import '../styles/menu.css';
 import '../styles/login.css';
 
@@ -16,7 +16,6 @@ const ModalLogin = ({
 }) => {
   const [userCred, setUserCred] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
   const { changeToken } = useToken();
 
   async function login() {
@@ -25,20 +24,25 @@ const ModalLogin = ({
       password,
     };
 
-    const res = await fetch(`${serveur}/auth/create-token`, {
+    fetch(`${serveur}/auth/create-token`, {
       method: 'POST',
       body: JSON.stringify(bodyContent),
       headers: { 'Content-Type': 'application/json' },
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        changeToken(data.token);
+        return fetch(`${serveur}/user`, {
+          method: 'GET',
+          headers: { Authorization: `Bearer ${data.token}` },
+        });
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        localStorage.setItem('id', data.id);
+      });
 
-    if (res.ok) {
-      const data = await res.json();
-      await changeToken(data.token);
-      navigate('favorite'); // TODO navigation vers page profil
-      setLogin(false);
-    } else {
-      console.error(res.statusText);
-    }
+    setLogin(false);
   }
 
   function handleLogin(e) {

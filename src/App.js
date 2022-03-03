@@ -7,6 +7,7 @@ import Menu from './components/menu';
 import Search from './components/search';
 import Profile from './components/profile';
 import Favorite from './components/favorite';
+import OwnTracks from './components/ownTracks';
 import Settings from './components/settings';
 import AlbumInfo from './components/album-info';
 import Create from './components/create';
@@ -34,6 +35,7 @@ export default function App() {
                   <Route path="/profile/:id" element={<Profile />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/favorite" element={<Favorite />} />
+                  <Route path="/owntracks" element={<OwnTracks />} />
                   <Route path="/settings" element={<Settings />} />
                   <Route path="/album" element={<Album />} />
                   <Route path="/album/:id" element={<AlbumInfo />} />

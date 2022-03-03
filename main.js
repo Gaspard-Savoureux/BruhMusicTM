@@ -32,7 +32,7 @@ function createWindow() {
     },
   });
   // win.setMenu(null);
-  win.loadFile('index.html');
+  win.loadFile('./index.html');
 }
 
 if (isDev) {

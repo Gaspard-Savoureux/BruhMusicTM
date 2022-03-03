@@ -1,19 +1,27 @@
 {
-  "name": "electron-react-app",
+  "name": "bruh-music-tm",
   "version": "1.0.0",
   "description": "",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --config webpack.common.js --watch",
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "electron:linux": "electron-builder --linux",
+    "electron:win": "electron-builder --win",
+    "electron:mac": "electron-builder --mac",
+    "dist": "electron-builder",
+    "build": "cp ./build/js/app.js ./app.js",
+    "build:linux": "npm run build && npm run electron:linux",
+    "build:win": "npm run build && npm run electron:win",
+    "build:mac": "npm run build && npm run electron:mac"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@ramonak/react-progress-bar": "^4.4.0",
-    "electron": "^17.0.1",
     "electron-store": "^8.0.1",
     "prop-types": "^15.8.1",
     "react": "^16.13.1",
@@ -27,6 +35,9 @@
     "@babel/preset-react": "^7.10.4",
     "babel-loader": "^8.1.0",
     "css-loader": "^4.3.0",
+    "electron": "^17.1.0",
+    "electron-builder": "^22.14.13",
+    "electron-prebuilt-compile": "8.2.0",
     "electron-reload": "^1.5.0",
     "eslint": "^8.9.0",
     "eslint-config-airbnb": "^19.0.4",
@@ -40,5 +51,22 @@
     "style-loader": "^1.2.1",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12"
+  },
+  "build": {
+    "appId": "com.electron.bruhmusic",
+    "productName": "BruhMusicTM",
+    "icon": "./icons/512x512.png",
+    "linux": {
+      "target": "AppImage",
+      "icon": "./icons/256x256.png"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "./icons/256x256.png"
+    },
+    "mac": {
+      "target": "pkg",
+      "icon": "./icons/512x512.png"
+    }
   }
 }

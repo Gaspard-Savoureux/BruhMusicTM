@@ -16,7 +16,6 @@ export default function PlaylistInfo() {
   const [music, setMusic] = useState(null);
   const [favorite, setFavorites] = useState([]);
   const { setTracks } = useMusicPlayer();
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getPlaylistInfo = async () => {

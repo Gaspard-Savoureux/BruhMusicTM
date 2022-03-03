@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import { serveur } from '../const';
+import { useNavigate } from 'react-router-dom';
 import '../styles/music.css';
 
 import useMusicPlayer from '../hooks/useMusicPlayer';
 import useToken from '../hooks/useToken';
 
-export default function Music({ music, songNum, favorites }) {
+export default function OwnMusic({ music, songNum, favorites }) {
   const { playTrack, formatTime } = useMusicPlayer();
+  const [num, setNum] = useState(songNum);
   const [thisIsFavorite, setThisIsFavorite] = useState(
     favorites.includes(music.id),
   );
   const { getToken } = useToken();
+  const navigate = useNavigate();
 
   const imageSrc = music.image
     ? `${serveur}/uploads/${music.image}`
@@ -41,6 +44,18 @@ export default function Music({ music, songNum, favorites }) {
     if (res.ok) setThisIsFavorite(!thisIsFavorite);
   };
 
+  const deleteMusic = async () => {
+    const url = `${serveur}/music/${music.id}`;
+    await fetch(url, {
+      method: 'DELETE',
+      headers: {
+        authorization: `Bearer ${getToken()}`,
+      },
+    });
+    navigate('/settings');
+    navigate('/owntracks');
+  };
+
   const BoutonFav = () => {
     if (!getToken()) return '';
     if (thisIsFavorite) return <i className="fas fa-heart" />;
@@ -48,7 +63,7 @@ export default function Music({ music, songNum, favorites }) {
   };
 
   return (
-    <div className="music-container">
+    <div className="own-music-container">
       <div
         className="music-grid"
         role="button"
@@ -56,7 +71,7 @@ export default function Music({ music, songNum, favorites }) {
         onKeyDown={changeAudio}
         tabIndex={0}
       >
-        <div className="music-num">{songNum}</div>
+        <div className="music-num">{num}</div>
         <img
           className="image"
           src={imageSrc}
@@ -80,6 +95,15 @@ export default function Music({ music, songNum, favorites }) {
         tabIndex={0}
       >
         <BoutonFav />
+      </div>
+      <div
+        className="trash"
+        role="button"
+        onClick={deleteMusic}
+        onKeyDown={deleteMusic}
+        tabIndex={0}
+      >
+        <i className="fas fa-trash-alt" />
       </div>
     </div>
   );

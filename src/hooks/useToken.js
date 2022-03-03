@@ -5,17 +5,20 @@ const useToken = () => {
   const [state, setState] = useContext(TokenContext);
 
   function getToken() {
+    const token = localStorage.getItem('token');
+    // return token;
+    if (token) return token;
     return state.token;
   }
 
   function changeToken(token) {
     setState({ ...state, token });
-    // localStorage.setItem('Token', token);
+    localStorage.setItem('token', token);
   }
 
   function clearToken() {
-    setState({ ...state, token: '' });
-    // localStorage.removeItem('Token');
+    setState({ ...state, token: null });
+    localStorage.removeItem('token');
   }
 
   return {

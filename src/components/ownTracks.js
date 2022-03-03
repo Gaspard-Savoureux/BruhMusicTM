@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import MusicList from './music-list';
+import OwnMusic from './ownMusic';
 
 import '../styles/container.css';
 import '../styles/form-components.css';
@@ -9,7 +9,7 @@ import { serveur } from '../const';
 import useToken from '../hooks/useToken';
 import useMusicPlayer from '../hooks/useMusicPlayer';
 
-export default function Favorite() {
+export default function OwnTracks() {
   const [music, setMusic] = useState([]);
   const [favorites, setFavorites] = useState([]);
   const { getToken } = useToken();
@@ -21,7 +21,7 @@ export default function Favorite() {
       const token = getToken();
       if (token === '') navigate('/');
 
-      const url = `${serveur}/favorite`;
+      const url = `${serveur}/music/user/${localStorage.getItem('id')}`;
       const content = {
         method: 'GET',
         headers: {
@@ -32,19 +32,8 @@ export default function Favorite() {
 
       if (res.ok) {
         const data = await res.json();
-        const { length } = data;
-        const idFav = [];
-        for (let i = 0; i < length; i += 1) {
-          idFav.push(data[i].music_id);
-        }
-        setFavorites(idFav);
-
-        const tracks = data.map((track) => {
-          return { ...track, isFavorite: true };
-        });
-
-        setMusic(tracks);
-        setTracks(tracks);
+        setMusic(data);
+        setTracks(data);
       } else {
         console.log("une erreur s'est produite lors de l'appel à /music");
       }
@@ -54,8 +43,24 @@ export default function Favorite() {
 
   return (
     <div className="main-view-container">
-      <div className="section-title">Your Favorites</div>
-      <MusicList music={music} favorites={favorites} />
+      <div className="section-title">Your tracks</div>
+      <div className="ml-container">
+        <div className="ml-header">
+          <div className="ml-header-song-number">#</div>
+          <div className="ml-header-title">Titre</div>
+          <div className="ml-header-duration">Durée</div>
+        </div>
+        <div className="ml-list">
+          {music?.map((item) => (
+            <OwnMusic
+              music={item}
+              songNum={music.indexOf(item) + 1}
+              favorites={favorites}
+              key={item.id}
+            />
+          )) ?? ''}
+        </div>
+      </div>
     </div>
   );
 }
